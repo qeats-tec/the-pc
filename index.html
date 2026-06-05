@@ -2,136 +2,408 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>System Core - Terminal</title>
+    <title>Windows 11 - Desktop Simulator</title>
     <style>
-        body {
-            background-color: #050505;
-            color: #00ff33;
-            font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            padding: 20px;
-            overflow: hidden;
+        * {
+            box-sizing: border-box;
+            user-select: none;
         }
-        /* Sahte Masaüstü Alanı */
-        #desktop {
+        body {
+            margin: 0;
+            padding: 0;
             width: 100vw;
             height: 100vh;
-            position: relative;
+            /* Arka plan senin istediğin gibi pc.png olacak */
+            background: url('pc.png') no-repeat center center;
+            background-size: cover;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            color: white;
         }
-        /* Sahte Uygulama İkonları */
+
+        /* Masaüstü İkon Alanı */
+        .desktop-grid {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 90px);
+            grid-gap: 25px 15px;
+        }
+
         .icon {
-            width: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
             cursor: pointer;
-            margin-bottom: 20px;
-            font-size: 12px;
+            width: 85px;
         }
-        .icon img { width: 45px; height: 45px; display: block; margin: 0 auto 5px; }
 
-        /* Gizli Terminal Penceresi */
-        .window {
-            width: 600px;
-            height: 350px;
-            background: #000;
-            border: 1px solid #00ff33;
-            position: absolute;
-            top: 10%;
-            left: 25%;
-            box-shadow: 0 0 15px rgba(0, 255, 51, 0.2);
+        .icon img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            margin-bottom: 6px;
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));
         }
-        .window-header {
-            background: #111;
-            padding: 5px;
-            border-bottom: 1px solid #00ff33;
-            font-size: 12px;
+
+        .icon span {
+            font-size: 11px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
+            font-weight: 400;
+            line-height: 1.2;
+            word-break: break-word;
+        }
+
+        /* Windows 11 Görev Çubuğu (Taskbar) */
+        .taskbar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+            height: 48px;
+            background: rgba(243, 243, 243, 0.85);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            z-index: 9999;
         }
-        .terminal-body {
+
+        /* Görev Çubuğu Orta Kısım */
+        .taskbar-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .taskbar-icon {
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        .taskbar-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* Sahte Arama Çubuğu (Terminali Buradan Bulacağız) */
+        .search-bar-sim {
+            background: white;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 20px;
+            height: 32px;
+            width: 180px;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            color: #555;
+            font-size: 13px;
+        }
+        .search-bar-sim input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 12px;
+            color: #333;
+        }
+
+        /* Görev Çubuğu Sağ Kısım (Saat/Tarih) */
+        .taskbar-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 12px;
+            color: #222;
+            font-weight: 500;
+        }
+        .system-time {
+            text-align: right;
+            line-height: 1.3;
+        }
+
+        /* Genel Pencere Tasarımı (Pencereler) */
+        .window {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(0,0,0,0.15);
+            color: black;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 100;
+        }
+
+        .window-header {
+            background: #f3f3f3;
             padding: 10px;
-            height: 300px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 600;
+            border-bottom: 1px solid #e0e0e0;
+            cursor: move;
+        }
+
+        .close-btn {
+            background: #ff5f56;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        .window-body {
+            padding: 15px;
+            flex-grow: 1;
             overflow-y: auto;
         }
-        input {
+
+        /* Sahte Crome Arayüzü */
+        .crome-nav {
+            background: #eee;
+            padding: 5px;
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+        }
+        .crome-url {
+            background: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            flex-grow: 1;
+            font-size: 12px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        /* Dehşet Terminali Özel Tasarımı */
+        .terminal-window {
+            background: #0c0c0c !important;
+            color: #00ff33 !important;
+            font-family: 'Courier New', Courier, monospace;
+            border: 1px solid #00ff33 !important;
+        }
+        .terminal-header {
+            background: #1a1a1a;
+            color: #00ff33;
+            border-bottom: 1px solid #00ff33;
+        }
+        .terminal-body {
+            background: #0c0c0c;
+            height: 300px;
+            padding: 10px;
+        }
+        .terminal-input-line {
+            display: flex;
+            align-items: center;
+        }
+        .terminal-input-line input {
             background: transparent;
             border: none;
             color: #00ff33;
             font-family: inherit;
-            font-size: inherit;
-            width: 80%;
             outline: none;
+            flex-grow: 1;
+            padding-left: 5px;
         }
     </style>
 </head>
 <body>
 
-<div id="desktop">
-    <!-- Sahte Tarayıcı İkonu -->
-    <div class="icon" onclick="openApp('crome')">
-        <div style="font-size: 30px;">🌐</div>
-        <span>Crome.exe</span>
+    <!-- Masaüstü İkonları -->
+    <div class="desktop-grid">
+        <div class="icon" onclick="openWindow('win-pc')">
+            <img src="https://cdn-icons-png.flaticon.com/512/482/482121.png" alt="Bu Bilgisayar">
+            <span>Bu Bilgisayar</span>
+        </div>
+        <div class="icon" onclick="openWindow('win-crome')">
+            <!-- Görseldeki Google Chrome -->
+            <img src="https://cdn-icons-png.flaticon.com/512/888/888846.png" alt="Crome">
+            <span>Google Chrome</span>
+        </div>
+        <div class="icon" onclick="openWindow('win-folder')">
+            <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Masaüstü">
+            <span>masaüstü</span>
+        </div>
+        <div class="icon" onclick="alert('Sistem dosyası bozuk. Erişim reddedildi.')">
+            <img src="https://cdn-icons-png.flaticon.com/512/11512/11512863.png" alt="Geri Dönüşüm">
+            <span>Geri Dönüşüm</span>
+        </div>
     </div>
 
-    <!-- Sahte Terminal Penceresi -->
-    <div class="window">
+    <!-- PENCERE 1: Sahte Crome Tarayıcısı -->
+    <div id="win-crome" class="window" style="width: 700px; height: 450px; top: 15%; left: 20%;">
         <div class="window-header">
-            <span>DEHSET_OS // TERMINAL [ROOT]</span>
-            <span>X</span>
+            <span>Google Chrome (Gizli Oturum)</span>
+            <button class="close-btn" onclick="closeWindow('win-crome')"></button>
         </div>
-        <div class="terminal-body" id="term-out">
-            <p>Sistem yükleniyor... [OK]</p>
-            <p>Gizli arşive erişmek için şifreli ZIP dosyasını açın.</p>
-            <p>İpucu için sahte 'Crome' geçmişini kurcalayın veya komut girin (örn: 'help').</p>
-            <hr style="border-color: #00ff33;">
-            <span>root@dehset_os:~$ </span><input type="text" id="term-input" onkeydown="handleCommand(event)">
+        <div class="crome-nav">
+            <span style="font-size:14px; cursor:pointer;">🏠 ↻</span>
+            <input type="text" class="crome-url" id="crome-addr" value="https://www.google.com" onkeydown="navigateCrome(event)">
+        </div>
+        <div class="window-body" id="crome-body" style="background: #fafafa; font-size: 14px;">
+            <h3>Google</h3>
+            <p>Güvenli mod aktif. İnternet geçmişinde şüpheli veri tespit edildi.</p>
+            <p style="color: #666; font-size: 12px;">Geliştirici notu: Sistem kök dizinine erişmek için görev çubuğundaki arama motoruna arka kapı komutunu (cmd) girin.</p>
         </div>
     </div>
-</div>
 
-<script>
-    // Hikaye Adımları ve Şifreler
-    const secrets = {
-        zip_password: "RED_EYE_2011",
-        hidden_url: "localhost/archive_omega"
-    };
+    <!-- PENCERE 2: Masaüstü Klasörü -->
+    <div id="win-folder" class="window" style="width: 500px; height: 350px; top: 25%; left: 35%;">
+        <div class="window-header">
+            <span>Klasör: /masaüstü</span>
+            <button class="close-btn" onclick="closeWindow('win-folder')"></button>
+        </div>
+        <div class="window-body" style="background: white; display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+            <div style="text-align:center; cursor:pointer;" onclick="readTextFile()">
+                <img src="https://cdn-icons-png.flaticon.com/512/2991/2991112.png" width="40">
+                <div style="font-size:12px; color:black;">HIKAYE_LOG.txt</div>
+            </div>
+            <div style="text-align:center; opacity: 0.7;">
+                <img src="https://cdn-icons-png.flaticon.com/512/2991/2991116.png" width="40">
+                <div style="font-size:12px; color:black;">Sistem_Yedek.zip (Kilitli)</div>
+            </div>
+        </div>
+    </div>
 
-    function handleCommand(e) {
-        if (e.key === 'Enter') {
-            let input = document.getElementById('term-input');
-            let output = document.getElementById('term-out');
-            let cmd = input.value.trim().toLowerCase();
+    <!-- GİZLİ PENCERE 3: Dehşet Terminali (Başta Gizli, Arama Çubuğundan Açılacak) -->
+    <div id="win-terminal" class="window terminal-window" style="width: 600px; height: 380px; top: 20%; left: 30%;">
+        <div class="window-header terminal-header">
+            <span>KÖK SİSTEM // CMD.EXE (ADMİN)</span>
+            <button class="close-btn" onclick="closeWindow('win-terminal')"></button>
+        </div>
+        <div class="window-body terminal-body" id="term-content">
+            <p>[SİSTEM YÜKLENDİ - 5 HAZİRAN 2026]</p>
+            <p>Arşiv dosyalarını açmak için komut satırını kullanın.</p>
+            <p>İpucu: Klasördeki kilitli zip dosyasını kırmak için 'unzip [şifre]' komutunu deneyin. Şifreyi bulmak için Crome adres çubuğuna 'localhost/deep' yazın.</p>
+            <div class="terminal-input-line">
+                <span>C:\Users\Admin></span>
+                <input type="text" id="term-input" onkeydown="runCommand(event)">
+            </div>
+        </div>
+    </div>
+
+    <!-- Windows 11 Görev Çubuğu -->
+    <div class="taskbar">
+        <!-- Sol kısım boş veya mini araçlar -->
+        <div style="color: #222; font-size: 12px; font-weight: 500;">
+            🌤️ 25°C Genellikle açık
+        </div>
+
+        <!-- Merkez İkonlar ve Arama Çubuğu -->
+        <div class="taskbar-center">
+            <!-- Sahte Windows Başlat Logosu -->
+            <img class="taskbar-icon" src="https://cdn-icons-png.flaticon.com/512/732/732221.png" alt="Start">
             
-            let p = document.createElement('p');
-            p.innerHTML = `root@dehset_os:~$ ${input.value}`;
-            output.insertBefore(p, input.parentNode);
+            <!-- ARAMA ÇUBUĞU: Terminali tetikleyen ana mekanizma -->
+            <div class="search-bar-sim">
+                🔍 <input type="text" id="win-search" placeholder="Ara" onkeydown="checkSearch(event)">
+            </div>
 
-            let res = document.createElement('p');
-            
-            // Komut Kontrolleri
-            if (cmd === 'help') {
-                res.innerHTML = "Mevcut Komutlar: <br>- [ls]: Dosyaları listeler.<br>- [unzip]: Şifreli dosyayı açar.<br>- [clear]: Ekranı temizler.";
-            } else if (cmd === 'ls') {
-                res.innerHTML = "Dizin: /root/desktop/secrets<br>-> GIZLI_HARITA_001.JPG (KİLİTLİ)<br>-> PROJE_YILAN_LOG.ZIP (ŞİFRELİ)";
-            } else if (cmd.startsWith('unzip')) {
-                let parts = input.value.split(' ');
-                if(parts[1] === secrets.zip_password) {
-                    res.innerHTML = "<span style='color:cyan;'>[ERİŞİM ONAYLANDI]</span><br>ZIP Açıldı. İçinden çıkan ses dosyası notu: 'Onlar beni buldu. Tarayıcı geçmişindeki localhost/archive_omega linkine bak...'";
-                } else {
-                    res.innerHTML = "<span style='color:red;'>[HATA] Hatalı Şifre. Yetkisiz erişim algılandı!</span>";
-                }
-            } else {
-                res.innerHTML = "Komut anlaşılamadı. Yardım için 'help' yazın.";
-            }
+            <img class="taskbar-icon" src="https://cdn-icons-png.flaticon.com/512/716/716784.png" onclick="openWindow('win-folder')">
+            <img class="taskbar-icon" src="https://cdn-icons-png.flaticon.com/512/888/888846.png" onclick="openWindow('win-crome')">
+        </div>
 
-            output.insertBefore(res, input.parentNode);
-            input.value = '';
-            output.scrollTop = output.scrollHeight;
+        <!-- Sağ Taraf (Tarih ve Saat) -->
+        <div class="taskbar-right">
+            <div class="system-time">
+                <div id="time-display">22:08</div>
+                <div id="date-display">5.06.2026</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Pencereleri Açıp Kapatma Fonksiyonları
+        function openWindow(id) {
+            document.getElementById(id).style.display = 'flex';
         }
-    }
+        function closeWindow(id) {
+            document.getElementById(id).style.display = 'none';
+        }
 
-    function openApp(app) {
-        alert(app.toUpperCase() + " başlatılıyor... Ama sistem dosyaları bozuk! Crome geçmişine bakmak için terminali hackle.");
-    }
-</script>
+        // Görev Çubuğundaki Arama Mekanizması (Terminali Bulma)
+        function checkSearch(e) {
+            if (e.key === 'Enter') {
+                let query = e.target.value.trim().toLowerCase();
+                if (query === 'cmd' || query === 'terminal') {
+                    openWindow('win-terminal');
+                    e.target.value = '';
+                } else {
+                    alert('"' + query + '" için sonuç bulunamadı. Başka bir komut deneyin (İpucu: cmd).');
+                }
+            }
+        }
+
+        // Sahte Crome Gezinme Mekanizması (Uzun Hikayeyi Buradan Besleyeceğiz)
+        function navigateCrome(e) {
+            if (e.key === 'Enter') {
+                let url = e.target.value.trim().toLowerCase();
+                let body = document.getElementById('crome-body');
+                
+                if (url.includes('localhost/deep')) {
+                    body.innerHTML = `
+                        <h2 style="color:red;">⚠️ ERİŞİLEN ARŞİV: PROJE_YILAN LOGLARI</h2>
+                        <p><b>Tarih:</b> 12 Mart 2011</p>
+                        <p>Sistem odasından garip sesler geliyor. Kod kendi kendine satırlar ekliyor. ZIP dosyasının şifresini kimsenin bulamayacağı bir yere, ilk bot projemizin ismine ayarladım...</p>
+                        <p><b>İpucu:</b> Şifre tamamen BÜYÜK harflerle 'CENQAVER'</p>
+                    `;
+                } else {
+                    body.innerHTML = `<h3>404 Not Found</h3><p>"${url}" adresi bu güvenli sunucuda mevcut değil.</p>`;
+                }
+            }
+        }
+
+        // Klasördeki Gizli TXT Okuma Tetikleyicisi
+        function readTextFile() {
+            alert("HİKAYE LOG DOSYASI:\n\n'Bu bilgisayarda bir terslik var. Masaüstü her açıldığında arka plandaki renkler sanki biraz daha kararıyor. Terminal gizlendi, ona sadece arama motorundan ulaşılabiliyor. Kurtulmam lazım.'");
+        }
+
+        // Terminal Komut Kontrolleri (Şifre Kırma)
+        function runCommand(e) {
+            if (e.key === 'Enter') {
+                let input = e.target;
+                let content = document.getElementById('term-content');
+                let fullCmd = input.value.trim();
+                let cmdParts = fullCmd.split(' ');
+                let cmd = cmdParts[0].toLowerCase();
+
+                let line = document.createElement('p');
+                line.innerHTML = `C:\\Users\\Admin> ${fullCmd}`;
+                content.insertBefore(line, input.parentNode);
+
+                let reply = document.createElement('p');
+
+                if (cmd === 'unzip') {
+                    if (cmdParts[1] === 'CENQAVER') {
+                        reply.innerHTML = "<span style='color:cyan;'>[BAŞARILI] ZIP DOSYASI AÇILDI!</span><br>Büyük sır açığa çıktı: 'Sistem tamamen bir simülasyondan ibaret. 2026 yılındayız ama zaman bizim için durdu...'";
+                        // Ekranı hafifçe sallayarak meta-horror efekti verelim
+                        document.body.style.filter = "invert(1) hue-rotate(180deg)";
+                        setTimeout(() => { document.body.style.filter = "none"; }, 500);
+                    } else {
+                        reply.innerHTML = "<span style='color:red;'>[HATA] Geçersiz şifre anahtarı! Erişim engellendi.</span>";
+                    }
+                } else {
+                    reply.innerHTML = `'${cmd}' geçerli bir iç veya dış komut olarak tanınmadı. Kilit açmak için 'unzip [şifre]' komutunu kullanın.`;
+                }
+
+                content.insertBefore(reply, input.parentNode);
+                input.value = '';
+                content.scrollTop = content.scrollHeight;
+            }
+        }
+    </script>
 </body>
 </html>
