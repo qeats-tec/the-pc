@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>System Core - Terminal</title>
+    <style>
+        body {
+            background-color: #050505;
+            color: #00ff33;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+            overflow: hidden;
+        }
+        /* Sahte Masaüstü Alanı */
+        #desktop {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+        /* Sahte Uygulama İkonları */
+        .icon {
+            width: 80px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 12px;
+        }
+        .icon img { width: 45px; height: 45px; display: block; margin: 0 auto 5px; }
+
+        /* Gizli Terminal Penceresi */
+        .window {
+            width: 600px;
+            height: 350px;
+            background: #000;
+            border: 1px solid #00ff33;
+            position: absolute;
+            top: 10%;
+            left: 25%;
+            box-shadow: 0 0 15px rgba(0, 255, 51, 0.2);
+        }
+        .window-header {
+            background: #111;
+            padding: 5px;
+            border-bottom: 1px solid #00ff33;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .terminal-body {
+            padding: 10px;
+            height: 300px;
+            overflow-y: auto;
+        }
+        input {
+            background: transparent;
+            border: none;
+            color: #00ff33;
+            font-family: inherit;
+            font-size: inherit;
+            width: 80%;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="desktop">
+    <!-- Sahte Tarayıcı İkonu -->
+    <div class="icon" onclick="openApp('crome')">
+        <div style="font-size: 30px;">🌐</div>
+        <span>Crome.exe</span>
+    </div>
+
+    <!-- Sahte Terminal Penceresi -->
+    <div class="window">
+        <div class="window-header">
+            <span>DEHSET_OS // TERMINAL [ROOT]</span>
+            <span>X</span>
+        </div>
+        <div class="terminal-body" id="term-out">
+            <p>Sistem yükleniyor... [OK]</p>
+            <p>Gizli arşive erişmek için şifreli ZIP dosyasını açın.</p>
+            <p>İpucu için sahte 'Crome' geçmişini kurcalayın veya komut girin (örn: 'help').</p>
+            <hr style="border-color: #00ff33;">
+            <span>root@dehset_os:~$ </span><input type="text" id="term-input" onkeydown="handleCommand(event)">
+        </div>
+    </div>
+</div>
+
+<script>
+    // Hikaye Adımları ve Şifreler
+    const secrets = {
+        zip_password: "RED_EYE_2011",
+        hidden_url: "localhost/archive_omega"
+    };
+
+    function handleCommand(e) {
+        if (e.key === 'Enter') {
+            let input = document.getElementById('term-input');
+            let output = document.getElementById('term-out');
+            let cmd = input.value.trim().toLowerCase();
+            
+            let p = document.createElement('p');
+            p.innerHTML = `root@dehset_os:~$ ${input.value}`;
+            output.insertBefore(p, input.parentNode);
+
+            let res = document.createElement('p');
+            
+            // Komut Kontrolleri
+            if (cmd === 'help') {
+                res.innerHTML = "Mevcut Komutlar: <br>- [ls]: Dosyaları listeler.<br>- [unzip]: Şifreli dosyayı açar.<br>- [clear]: Ekranı temizler.";
+            } else if (cmd === 'ls') {
+                res.innerHTML = "Dizin: /root/desktop/secrets<br>-> GIZLI_HARITA_001.JPG (KİLİTLİ)<br>-> PROJE_YILAN_LOG.ZIP (ŞİFRELİ)";
+            } else if (cmd.startsWith('unzip')) {
+                let parts = input.value.split(' ');
+                if(parts[1] === secrets.zip_password) {
+                    res.innerHTML = "<span style='color:cyan;'>[ERİŞİM ONAYLANDI]</span><br>ZIP Açıldı. İçinden çıkan ses dosyası notu: 'Onlar beni buldu. Tarayıcı geçmişindeki localhost/archive_omega linkine bak...'";
+                } else {
+                    res.innerHTML = "<span style='color:red;'>[HATA] Hatalı Şifre. Yetkisiz erişim algılandı!</span>";
+                }
+            } else {
+                res.innerHTML = "Komut anlaşılamadı. Yardım için 'help' yazın.";
+            }
+
+            output.insertBefore(res, input.parentNode);
+            input.value = '';
+            output.scrollTop = output.scrollHeight;
+        }
+    }
+
+    function openApp(app) {
+        alert(app.toUpperCase() + " başlatılıyor... Ama sistem dosyaları bozuk! Crome geçmişine bakmak için terminali hackle.");
+    }
+</script>
+</body>
+</html>
