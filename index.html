@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Windows 11 - Secure Environment</title>
+    <title>DEHSET_OS - Terminal Terminal</title>
     <style>
-        /* GENEL SIFIRLAMA VE ARKA PLAN */
+        /* SİSTEM SIFIRLAMA */
         * {
             box-sizing: border-box;
             user-select: none;
@@ -17,20 +17,20 @@
             height: 100vh;
             background: url('pc.png') no-repeat center center;
             background-size: cover;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
             overflow: hidden;
             color: white;
-            transition: filter 0.5s ease, background 1s ease;
+            transition: filter 0.4s ease;
         }
 
-        /* MASAÜSTÜ İKON DÜZENİ */
+        /* MASAÜSTÜ İKON MATRİSİ */
         .desktop-grid {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 25px;
+            left: 25px;
             display: grid;
-            grid-template-columns: repeat(2, 95px);
-            grid-gap: 25px 15px;
+            grid-template-columns: repeat(1, 95px);
+            grid-gap: 20px;
             z-index: 5;
         }
         .icon {
@@ -39,125 +39,62 @@
             align-items: center;
             text-align: center;
             cursor: pointer;
-            width: 90px;
-            padding: 5px;
-            border-radius: 4px;
-            transition: background 0.2s;
+            width: 95px;
+            padding: 8px;
+            border-radius: 6px;
+            transition: background 0.2s, transform 0.1s;
         }
         .icon:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(5px);
+        }
+        .icon:active {
+            transform: scale(0.95);
         }
         .icon img {
-            width: 45px;
-            height: 45px;
+            width: 44px;
+            height: 44px;
             object-fit: contain;
-            margin-bottom: 6px;
-            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));
+            margin-bottom: 8px;
+            filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.6));
         }
         .icon span {
             font-size: 11px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.95);
             font-weight: 400;
-            line-height: 1.2;
-            word-break: break-word;
-        }
-
-        /* WINDOWS 11 GÖREV ÇUBUĞU (TASKBAR) */
-        .taskbar {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100vw;
-            height: 48px;
-            background: rgba(243, 243, 243, 0.88);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 15px;
-            z-index: 9999;
-        }
-        .taskbar-left {
-            color: #222;
-            font-size: 12px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-        }
-        .taskbar-center {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .taskbar-icon {
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            transition: transform 0.1s;
-        }
-        .taskbar-icon:hover {
-            transform: scale(1.1);
-        }
-        .search-bar-sim {
-            background: white;
-            border: 1px solid rgba(0,0,0,0.1);
-            border-radius: 20px;
-            height: 32px;
-            width: 200px;
-            display: flex;
-            align-items: center;
-            padding: 0 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        .search-bar-sim input {
-            border: none;
-            outline: none;
-            width: 100%;
-            font-size: 12px;
-            color: #333;
-            margin-left: 5px;
-        }
-        .taskbar-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 12px;
-            color: #222;
-            font-weight: 500;
-        }
-        .system-time {
-            text-align: right;
             line-height: 1.3;
         }
 
-        /* PENCERE (WINDOW) MİMARİSİ */
+        /* OS PENCERE YAPISI */
         .window {
             position: absolute;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-            border: 1px solid rgba(0,0,0,0.15);
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(25px);
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+            border: 1px solid rgba(255,255,255,0.3);
             color: black;
             display: none;
             flex-direction: column;
             overflow: hidden;
             z-index: 100;
-            min-width: 300px;
-            min-height: 200px;
+            min-width: 350px;
+            animation: popIn 0.25s cubic-bezier(0.1, 0.9, 0.2, 1);
+        }
+        @keyframes popIn {
+            from { transform: scale(0.92); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
         .window-header {
-            background: #f3f3f3;
-            padding: 10px 15px;
+            background: rgba(240, 240, 240, 0.9);
+            padding: 12px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 12px;
             font-weight: 600;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            cursor: move;
         }
         .window-controls {
             display: flex;
@@ -173,78 +110,126 @@
         .close-btn { background: #ff5f56; }
         .min-btn { background: #ffbd2e; }
         .max-btn { background: #27c93f; }
+        
         .window-body {
-            padding: 15px;
+            padding: 18px;
             flex-grow: 1;
             overflow-y: auto;
+            font-size: 13px;
+            line-height: 1.6;
         }
 
-        /* SAHTE CHROME TASARIMI */
-        .chrome-nav {
-            background: #f1f3f4;
-            padding: 8px;
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            border-bottom: 1px solid #chchch;
+        /* NOT DEFTERİ & PDF ÖZEL TASARIMLARI */
+        .txt-content {
+            font-family: 'Consolas', monospace;
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 12px;
+            height: 250px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            color: #222;
         }
-        .chrome-nav span {
-            font-size: 16px;
-            color: #5f6368;
-            cursor: pointer;
-        }
-        .chrome-url {
-            background: #f8f9fa;
-            padding: 5px 12px;
-            border-radius: 16px;
-            flex-grow: 1;
-            font-size: 12px;
-            border: 1px solid #dadce0;
-            outline: none;
-            color: #3c4043;
-        }
-        .chrome-url:focus {
-            background: white;
-            border-color: #1a73e8;
+        .pdf-content {
+            background: #525659;
+            color: white;
+            padding: 20px;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
         }
 
-        /* DEHŞET TERMİNALİ (CMD.EXE) */
+        /* GÜVENLİ TERMİNAL (CMD.EXE) */
         .terminal-window {
-            background: #0c0c0c !important;
-            color: #00ff33 !important;
+            background: #050505 !important;
+            color: #33ff33 !important;
             font-family: 'Courier New', Courier, monospace;
-            border: 1px solid #00ff33 !important;
+            border: 1px solid rgba(51, 255, 51, 0.4) !important;
         }
         .terminal-header {
-            background: #1a1a1a !important;
-            color: #00ff33 !important;
-            border-bottom: 1px solid #00ff33 !important;
+            background: #111 !important;
+            color: #33ff33 !important;
+            border-bottom: 1px solid #33ff33 !important;
         }
         .terminal-body {
-            background: #0c0c0c;
-            height: 320px;
+            background: #050505;
+            height: 300px;
             padding: 15px;
             overflow-y: auto;
             font-size: 14px;
-            line-height: 1.4;
         }
         .terminal-input-line {
             display: flex;
             align-items: center;
-            margin-top: 5px;
+            margin-top: 8px;
         }
         .terminal-input-line input {
             background: transparent;
             border: none;
-            color: #00ff33;
+            color: #33ff33;
             font-family: inherit;
             font-size: inherit;
             outline: none;
             flex-grow: 1;
-            padding-left: 5px;
+            padding-left: 6px;
         }
 
-        /* TAM EKRAN VE BOOT EKRANLARI */
+        /* WINDOWS TASKBAR */
+        .taskbar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+            height: 48px;
+            background: rgba(243, 243, 243, 0.86);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 9999;
+        }
+        .taskbar-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .taskbar-icon {
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+        }
+        .search-bar-sim {
+            background: white;
+            border: 1px solid rgba(0,0,0,0.15);
+            border-radius: 100px;
+            height: 32px;
+            width: 180px;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            font-size: 12px;
+            color: #555;
+        }
+        .search-bar-sim input {
+            border: none;
+            outline: none;
+            width: 100%;
+            margin-left: 6px;
+            font-size: 12px;
+        }
+        .taskbar-right {
+            text-align: right;
+            font-size: 12px;
+            color: #111;
+            font-weight: 500;
+        }
+
+        /* OVERLAY EKRANLARI */
         .overlay-screen {
             position: fixed;
             top: 0;
@@ -255,133 +240,140 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-family: monospace;
-            text-align: center;
-        }
-        #boot-screen {
-            background: #000000;
             z-index: 99999;
-            color: white;
         }
-        #lock-screen {
-            background: rgba(15, 0, 0, 0.98);
-            z-index: 99998;
-            color: #ff3333;
-            display: none;
-        }
-        .boot-loader {
-            border: 4px solid #333;
-            border-top: 4px solid #00ff33;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* ZAMAN PARADOKSU GLITCH GÖRSEL EFEKTİ */
+        #boot-screen { background: #000; color: white; font-family: monospace; }
+        #lock-screen { background: #1a0000; color: #ff3333; font-family: monospace; display: none; text-align: center; }
+
+        /* PARADOX MODU (2011 - 2025 GEÇMİŞ ZAMAN EFEKTİ) */
         .paradox-active {
-            animation: glitch 0.15s infinite;
-            filter: invert(1) hue-rotate(90deg) contrast(1.5) !important;
+            animation: screenTremor 0.2s infinite;
+            filter: saturate(2) contrast(1.3) hue-rotate(30deg) !important;
         }
-        @keyframes glitch {
-            0% { transform: translate(0) }
-            25% { transform: translate(-2px, 1px) }
-            50% { transform: translate(1px, -2px) }
-            75% { transform: translate(-1px, -1px) }
-            100% { transform: translate(2px, 2px) }
+        @keyframes screenTremor {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(1px, -1px); }
+            100% { transform: translate(-1px, 1px); }
+        }
+
+        /* ÖLÜM EKRANI (< 2011 MUTLAK PARADOKS) */
+        #death-screen {
+            background: #000 !important;
+            color: #ff0000;
+            font-family: 'Courier New', monospace;
+            font-size: 42px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            display: none;
+            text-align: center;
+            z-index: 1000000;
+            animation: pulseGlow 0.1s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { transform: scale(1); filter: blur(0px); opacity: 0.95; }
+            100% { transform: scale(1.01); filter: blur(1px); opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 1. ETAP: WINDOWS BOOT EKRANI (TAM EKRAN TETİKLEME ALANI) -->
+    <!-- BOOT EKRANI -->
     <div id="boot-screen" class="overlay-screen">
-        <div class="boot-loader"></div>
-        <div style="font-size: 22px; margin-bottom: 10px; letter-spacing: 2px;">DEHSET_OS v2.0.26</div>
-        <div style="color: #555; margin-bottom: 40px;">Bütün çekirdek sistem bileşenleri yüklendi.</div>
-        <button onclick="startSystem()" style="background: transparent; border: 1px solid #00ff33; color: #00ff33; padding: 12px 35px; font-family: inherit; cursor: pointer; font-size: 15px; border-radius: 4px; transition: all 0.3s;">SİSTEMİ TAM EKRAN BAŞLAT</button>
+        <div style="font-size: 20px; margin-bottom: 20px; letter-spacing: 3px;">KÖK SİSTEM ÇEKİRDEĞİ BAŞLATILIYOR...</div>
+        <button onclick="startSystem()" style="background: transparent; border: 1px solid #33ff33; color: #33ff33; padding: 10px 25px; font-family: inherit; cursor: pointer; border-radius: 4px;">SİSTEMİ TAM EKRAN ÇALIŞTIR</button>
     </div>
 
-    <!-- 2. ETAP: TAM EKRANDAN ÇIKMA ENGELLEYİCİ (GÜVENLİK DUVARI) -->
+    <!-- GÜVENLİK DUVARI KİLİDİ (TAM EKRANDAN ÇIKINCA) -->
     <div id="lock-screen" class="overlay-screen">
-        <h1 style="font-size: 38px; margin-bottom: 15px; font-weight: bold;">⚠️ SİSTEM ENGELLENDİ ⚠️</h1>
-        <p style="font-size: 15px; max-width: 650px; color: #ccc; line-height: 1.6;">Geliştirici modu aktifken tarayıcı çerçevesi manipüle edilemez. Güvenli simülasyon ortamını korumak için tam ekrana geri dönmek zorundasınız.</p>
-        <button onclick="goFullscreen()" style="background: #ff3333; color: white; border: none; padding: 12px 30px; cursor: pointer; font-weight: bold; font-size: 14px; margin-top: 25px; border-radius: 4px; box-shadow: 0 0 15px rgba(255,0,0,0.4);">TAM EKRANA GERİ DÖN</button>
+        <h1 style="font-size: 32px; margin-bottom: 15px;">⚠️ SİMÜLASYON BAĞLANTI HATASI ⚠️</h1>
+        <p style="color: #bbb; max-width: 500px; font-size: 14px;">Zaman döngüsünün kararlılığı için pencere odak kontrolü tam ekranda kalmalıdır.</p>
+        <button onclick="goFullscreen()" style="background: #ff3333; color: white; border: none; padding: 10px 20px; cursor: pointer; margin-top: 20px; font-weight: bold; border-radius: 4px;">TAM EKRANA GERİ DÖN</button>
     </div>
 
-    <!-- MASAÜSTÜ SİMÜLASYON ALANI -->
+    <!-- MUTLAK DOĞUM GÜNÜ PARADOKSU ÖLÜM EKRANI -->
+    <div id="death-screen" class="overlay-screen">
+        YAZILIMCI HENÜZ DOĞMADI.
+    </div>
+
+    <!-- MASAÜSTÜ SİMÜLASYONU -->
     <div class="desktop-grid">
-        <div class="icon" onclick="openWindow('win-crome')">
-            <img src="https://cdn-icons-png.flaticon.com/512/888/888846.png" alt="Chrome">
-            <span>Google Chrome</span>
-        </div>
         <div class="icon" onclick="openWindow('win-folder')">
-            <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Masaüstü">
+            <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Klasör">
             <span>masaüstü</span>
         </div>
+        <div class="icon" onclick="openWindow('win-pdf')">
+            <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF">
+            <span style="color: #ff6666; font-weight: bold;">UGURSUZ_RAPOR.pdf</span>
+        </div>
     </div>
 
-    <!-- PENCERE BİLEŞENİ: GOOGLE CHROME -->
-    <div id="win-crome" class="window" style="width: 760px; height: 490px; top: 10%; left: 15%;">
+    <!-- PENCERE: DOSYA GEZGİNİ -->
+    <div id="win-folder" class="window" style="width: 450px; height: 350px; top: 15%; left: 15%;">
         <div class="window-header">
-            <span>Google Chrome (Gizli Pencere)</span>
-            <div class="window-controls">
-                <button class="control-btn min-btn"></button>
-                <button class="control-btn max-btn"></button>
-                <button class="control-btn close-btn" onclick="closeWindow('win-crome')"></button>
+            <span>Klasör Dizin: /desktop/files</span>
+            <div class="window-controls"><button class="control-btn close-btn" onclick="closeWindow('win-folder')"></button></div>
+        </div>
+        <div class="window-body" style="background: #f9f9f9; display: flex; gap: 20px;">
+            <div style="text-align: center; cursor: pointer;" onclick="openWindow('win-txt')">
+                <img src="https://cdn-icons-png.flaticon.com/512/2991/2991112.png" width="40">
+                <div style="font-size: 11px; margin-top: 4px; font-weight: 500;">HIKAYE_LOG.txt</div>
             </div>
-        </div>
-        <div class="chrome-nav">
-            <span>🏠 ↻</span>
-            <input type="text" class="chrome-url" id="crome-addr" value="https://www.google.com" onkeydown="navigateCrome(event)">
-        </div>
-        <div class="window-body" id="crome-body" style="background: #1e1e1e; color: #f5f5f5;">
-            <h3 style="margin-bottom: 10px; color: #ffbd2e;">Sunucu Bağlantısı Kesildi</h3>
-            <p style="font-size: 14px; color: #aaa; line-height: 1.5;">Yerel ağ kök veritabanı aktif doğrulamayı reddetti. Sistem zaman damgası kilit sınırını aşmış olabilir.</p>
-            <p style="color: #666; font-size: 12px; margin-top: 20px;">Geliştirici İpucu: Arka kapı komut arayüzünü (cmd) çalıştırmak için Windows görev çubuğundaki arama motorunu kullanın.</p>
+            <div style="text-align: center; opacity: 0.5;">
+                <img src="https://cdn-icons-png.flaticon.com/512/2991/2991116.png" width="40">
+                <div style="font-size: 11px; margin-top: 4px;">Gizemli_Arsiv.zip</div>
+            </div>
         </div>
     </div>
 
-    <!-- PENCERE BİLEŞENİ: DOSYA GEZGİNİ (MASAÜSTÜ) -->
-    <div id="win-folder" class="window" style="width: 540px; height: 380px; top: 20%; left: 30%;">
+    <!-- PENCERE: GENİŞLETİLMİŞ HİKAYE DOSYASI (TXT) -->
+    <div id="win-txt" class="window" style="width: 550px; height: 400px; top: 20%; left: 25%;">
         <div class="window-header">
-            <span>Klasör: /desktop/files</span>
-            <div class="window-controls">
-                <button class="control-btn min-btn"></button>
-                <button class="control-btn max-btn"></button>
-                <button class="control-btn close-btn" onclick="closeWindow('win-folder')"></button>
-            </div>
+            <span>HIKAYE_LOG.txt - Not Defteri</span>
+            <div class="window-controls"><button class="control-btn close-btn" onclick="closeWindow('win-txt')"></button></div>
         </div>
-        <div class="window-body" style="background: #fcfcfc; display: flex; gap: 25px; padding: 25px;">
-            <div style="text-align:center; cursor:pointer; width: 90px;" onclick="readTextFile()">
-                <img src="https://cdn-icons-png.flaticon.com/512/2991/2991112.png" width="45">
-                <div style="font-size:11px; color:black; margin-top:6px; font-weight:500;">HIKAYE_LOG.txt</div>
-            </div>
-            <div style="text-align:center; width: 90px; opacity: 0.7;">
-                <img src="https://cdn-icons-png.flaticon.com/512/2991/2991116.png" width="45">
-                <div style="font-size:11px; color:black; margin-top:6px; font-weight:500;">Gizemli_Arsiv.zip</div>
+        <div class="window-body">
+            <div class="txt-content">LOG ENJEKSİYONU // ERİŞİM: KÖK KULLANICI (QEAT)
+
+Her şey arka planda çalışan o sessiz çekirdek veritabanı projesi "Qore" ve emirlerime itaat eden "Cenqaver" modüllerinin entegrasyonuyla başladı. Başlarda her şey stabil ritim düzenekleri (Qsu!) gibi akıp gidiyordu. Ancak koda sızan zaman anomalisi tüm mimariyi bozdu.
+
+Zaman çizgisi bir düğüm gibi kendi üzerine katlanıyor. Bu anomalinin yayılmasını engellemek için sistemin kök dizin arşivini tamamen kilitledim. Geri dönüşü olmayan veri mühürleme anahtarını (9 haneli dijital kimlik) doğrudan masaüstündeki o lanetli kırmızı PDF dokümanının derinliklerine kazıdım.
+
+Eğer bu arşiv dosyasını şu anki zaman diliminde (2026 ve sonrasında) açmaya zorlarsan sistem güvenlik duvarı zaman aşımı hatası verecek ve seni dışarı fırlatacaktır. Dijital kilidi patlatmanın tek bir yolu var: Gerçek makinenin saat ve tarih ayarlarına sızmalı, zaman mekanizmasını geriye (2011 ile 2025 yılları arasına) bükmeli ve sayfayı yenilemelisin.
+
+DİKKAT: Zaman akışında sakın aşırıya kaçma. Eğer kronolojik sınırı 25 Eylül 2011 tarihinin gerisine düşürürsen, bu sistem kodlarını ve evreni inşa eden bilinç henüz dünyaya gelmemiş olacak. O sınır geçildiğinde mutlak paradoks başlar, tüm sistem kökten silinir ve geriye sadece hiçlik kalır...</div>
+        </div>
+    </div>
+
+    <!-- PENCERE: ŞİFRELİ KÖK RAPORU (PDF) -->
+    <div id="win-pdf" class="window" style="width: 500px; height: 380px; top: 10%; left: 40%;">
+        <div class="window-header">
+            <span>Adobe PDF Reader - UGURSUZ_RAPOR.pdf</span>
+            <div class="window-controls"><button class="control-btn close-btn" onclick="closeWindow('win-pdf')"></button></div>
+        </div>
+        <div class="window-body" style="background: #323639; padding: 15px;">
+            <div class="pdf-content">
+                <h4 style="color: #ff5555; border-bottom: 1px solid #ff5555; padding-bottom: 5px; margin-bottom: 10px;">KRİTİK GÜVENLİK DOKÜMANI</h4>
+                <p style="font-size: 12px; color: #ccc; margin-bottom: 15px;"><strong>BELGE DİZİN NO:</strong> SEC_REG_8842</p>
+                <p style="margin-bottom: 15px; font-size: 13px; line-height: 1.5;">Yapılan spektral kod taramaları sonucunda, kök dizinde yer alan şifreli mühür arşivinin dijital imza anahtarı aşağıda doğrulanmıştır:</p>
+                
+                <div style="background: rgba(0,0,0,0.4); padding: 12px; text-align: center; font-size: 22px; font-family: monospace; color: #ff3333; border: 1px dashed #ff3333; letter-spacing: 3px; margin-bottom: 15px;">
+                    958431775
+                </div>
+                
+                <p style="font-size: 11px; color: #aaa;">*Not: Bu anahtar kodlayıcının doğum miladına duyarlıdır. Sınır aşılırsa veri yok oluş protokolü otomatik tetiklenir.</p>
             </div>
         </div>
     </div>
 
-    <!-- GİZLİ PENCERE BİLEŞENİ: TERMİNAL (CMD.EXE) -->
-    <div id="win-terminal" class="window terminal-window" style="width: 680px; height: 420px; top: 15%; left: 22%;">
+    <!-- PENCERE: TERMİNAL (CMD.EXE) -->
+    <div id="win-terminal" class="window terminal-window" style="width: 620px; height: 380px; top: 30%; left: 20%;">
         <div class="window-header terminal-header">
             <span>KÖK TERMİNAL // CMD.EXE</span>
-            <div class="window-controls">
-                <button class="control-btn min-btn"></button>
-                <button class="control-btn max-btn"></button>
-                <button class="control-btn close-btn" onclick="closeWindow('win-terminal')"></button>
-            </div>
+            <div class="window-controls"><button class="control-btn close-btn" onclick="closeWindow('win-terminal')"></button></div>
         </div>
         <div class="window-body terminal-body" id="term-content">
-            <p>[DEHSET SİSTEM TERMİNALİ YÜKLENDİ]</p>
-            <p>Arşiv genişletme protokolü hazır. Çıkartma komutu: 'unzip [şifre_anahtarı]'</p>
+            <p>[DEHSET_OS KÖK VERİ GEZGİNİ YÜKLENDİ]</p>
+            <p>Arşivi çıkartmak için: 'unzip [anahtar_kodu]' yazın.</p>
             <div class="terminal-input-line">
                 <span>C:\Users\Admin></span>
                 <input type="text" id="term-input" onkeydown="runCommand(event)" autocomplete="off">
@@ -389,59 +381,60 @@
         </div>
     </div>
 
-    <!-- WINDOWS 11 GÖREV ÇUBUĞU (TASKBAR) -->
+    <!-- TASKBAR GÖREV ÇUBUĞU -->
     <div class="taskbar">
-        <div class="taskbar-left">
-            <span>🌤️ 25°C Genellikle açık</span>
-        </div>
-        
+        <div style="font-size:12px; color:#333;">⚡ Secure Environment Mode</div>
         <div class="taskbar-center">
-            <img class="taskbar-icon" src="https://cdn-icons-png.flaticon.com/512/732/732221.png" alt="Start">
-            
-            <!-- GİZLİ TETİKLEYİCİ ARAMA ÇUBUĞU -->
+            <img class="taskbar-icon" src="https://cdn-icons-png.flaticon.com/512/732/732221.png">
             <div class="search-bar-sim">
-                🔍 <input type="text" id="win-search" placeholder="Ara" onkeydown="checkSearch(event)" autocomplete="off">
+                🔍 <input type="text" placeholder="Ara (cmd yazın)" onkeydown="checkSearch(event)" autocomplete="off">
             </div>
-            
-            <img class="taskbar-icon" src="https://cdn-icons-png.flaticon.com/512/716/716784.png" onclick="openWindow('win-folder')">
-            <img class="taskbar-icon" src="https://cdn-icons-png.flaticon.com/512/888/888846.png" onclick="openWindow('win-crome')">
         </div>
-
-        <!-- GERÇEK ZAMANLI SAAT ALANI -->
         <div class="taskbar-right">
-            <div class="system-time">
-                <div id="time-display" style="color:black; font-weight:600;">00:00</div>
-                <div id="date-display" style="color:black; font-weight:500;">1.01.2026</div>
-            </div>
+            <div id="time-display" style="font-weight: 600;">00:00</div>
+            <div id="date-display" style="font-size: 11px;">01.01.2026</div>
         </div>
     </div>
 
     <script>
-        let currentYear = 2026;
+        let systemYear = 2026;
 
-        // 1. MOTOR: GERÇEK ZAMANLI SİSTEM SAATİ & TARİH TAKİBİ
-        function updateLiveClock() {
+        // TARİH MOTORU VE MUTLAK DOĞUM GÜNÜ KONTROLÜ
+        function checkSystemChronology() {
             const now = new Date();
+            systemYear = now.getFullYear();
+            
+            // Doğum Günü Limiti: 25 Eylül 2011 (Ay indeksi 0'dan başlar, Eylül = 8)
+            const birthdayLimit = new Date(2011, 8, 25);
+
+            // Saat Gösterimi Güncelleme
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
-            const day = now.getDate();
-            const month = now.getMonth() + 1;
-            currentYear = now.getFullYear();
-
             document.getElementById('time-display').innerText = `${hours}:${minutes}`;
-            document.getElementById('date-display').innerText = `${day}.${month}.${currentYear}`;
+            document.getElementById('date-display').innerText = `${now.getDate()}.${now.getMonth() + 1}.${systemYear}`;
 
-            // TARİH GERİYE ALINDIĞINDA DEVREYE GİREN GLITCH EFEKTİ
-            if (currentYear < 2026) {
+            // 1. KONTROL: 25 EYLÜL 2011 ÖNCESİ (MUTLAK KORKU EKRANI)
+            if (now < birthdayLimit) {
+                document.getElementById('death-screen').style.display = 'flex';
+                document.body.classList.remove('paradox-active');
+                return true; // Paradoks kilitlendi
+            } else {
+                document.getElementById('death-screen').style.display = 'none';
+            }
+
+            // 2. KONTROL: GÜVENLİ PARADOKS ARALIĞI (2011 - 2025 ARASI VİRÜSLÜ MOD)
+            if (systemYear < 2026) {
                 document.body.classList.add('paradox-active');
             } else {
                 document.body.classList.remove('paradox-active');
             }
+            return false;
         }
-        setInterval(updateLiveClock, 1000);
-        updateLiveClock();
+        
+        setInterval(checkSystemChronology, 1000);
+        const isDeadOnLoad = checkSystemChronology();
 
-        // 2. MOTOR: TAM EKRAN KONTROLLERİ VE GÜVENLİK YAPISI
+        // TAM EKRAN BAŞLATMA
         function startSystem() {
             goFullscreen();
             document.getElementById('boot-screen').style.display = 'none';
@@ -450,53 +443,34 @@
         function goFullscreen() {
             let el = document.documentElement;
             if (el.requestFullscreen) el.requestFullscreen();
-            else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
             else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-            else if (el.msRequestFullscreen) el.msRequestFullscreen();
         }
 
         function exitHandler() {
-            if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
-                document.getElementById('lock-screen').style.display = 'flex';
+            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                if (document.getElementById('death-screen').style.display !== 'flex') {
+                    document.getElementById('lock-screen').style.display = 'flex';
+                }
             } else {
                 document.getElementById('lock-screen').style.display = 'none';
             }
         }
-        ['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(evt => document.addEventListener(evt, exitHandler));
+        document.addEventListener('fullscreenchange', exitHandler);
+        document.addEventListener('webkitfullscreenchange', exitHandler);
 
-        // PENCERE GÖSTERİM FONKSİYONLARI
+        // PENCERE KONTROLLERİ
         function openWindow(id) { document.getElementById(id).style.display = 'flex'; }
         function closeWindow(id) { document.getElementById(id).style.display = 'none'; }
 
-        // GÖREV ÇUBUĞU GİZLİ TERMİNAL TETİKLEYİCİSİ
+        // TASKBAR ARA DETEKTÖRÜ
         function checkSearch(e) {
-            if (e.key === 'Enter') {
-                if (e.target.value.trim().toLowerCase() === 'cmd') {
-                    openWindow('win-terminal');
-                    e.target.value = '';
-                }
+            if (e.key === 'Enter' && e.target.value.trim().toLowerCase() === 'cmd') {
+                openWindow('win-terminal');
+                e.target.value = '';
             }
         }
 
-        // HİKAYE DOSYASI METİN OKUYUCU
-        function readTextFile() {
-            alert("LOG DOSYASI - EDİTÖR NOTU:\n\n'Sistemin çekirdek arşivi kilitlendi. Şifre olarak masaüstündeki o uğursuz kırmızı dokümanın (PDF) üzerindeki 9 haneli kimlik numarasını belirledim.\n\nAncak dikkat et! Zaman koruması aktif. Güvenlik protokolü bu dosyanın gelecekte açılmasını engelliyor. Arşivi patlatmak için zaman akışını manipüle etmeli ve bilgisayarı GEÇMİŞE götürmelisin.'");
-        }
-
-        // SAHTE CHROME ADRES SATIRI GEZİNTİSİ
-        function navigateCrome(e) {
-            if (e.key === 'Enter') {
-                let url = e.target.value.trim().toLowerCase();
-                let b = document.getElementById('crome-body');
-                if (url.includes('localhost/database')) {
-                    b.innerHTML = `<h3 style='color:#00ff33;'>Sistem Sunucu Bağlantısı</h3><p>Aktif Simülasyon Yılı: ${currentYear}</p><p>Durum: Zaman bariyeri aşılmadan kök dizin kilitli kalacaktır.</p>`;
-                } else {
-                    b.innerHTML = `<h3 style='color:red;'>404 Sunucu Hatası</h3><p>"${url}" adresine ait güvenli bir dizin bulunamadı.</p>`;
-                }
-            }
-        }
-
-        // 3. MOTOR: TERMİNAL BULMACA DENETLEYİCİSİ VE 3 AŞAMALI ZAMAN SONLARI
+        // TERMİNAL KOMUT MOTORU
         function runCommand(e) {
             if (e.key === 'Enter') {
                 let input = e.target;
@@ -512,49 +486,24 @@
                 let reply = document.createElement('p');
 
                 if (cmd === 'unzip') {
-                    // Ekrandaki PDF kod adı kontrolü
                     if (cmdParts[1] === '958431775') {
-                        
-                        const now = new Date();
-                        // Kullanıcının Doğum Günü Limiti: 25 Eylül 2011 (Aylar 0'dan başladığı için Eylül = 8)
-                        const birthdayLimit = new Date(2011, 8, 25);
-
-                        // AŞAMA 1: Kullanıcı hala normal zamanda (2026 veya sonrası)
-                        if (currentYear >= 2026) {
-                            reply.innerHTML = "<span style='color:#ff3333;'>[HATA] ZAMAN SENKRONİZASYON ENGELİ!</span><br>Bu arşiv dosyası gelecek zamandan korunmaktadır. Mühür geçmişte kapatıldı. Gerçek bilgisayarınızın tarihini geçmişe alıp sayfayı yenilemeden kilit açılmaz.";
-                        } 
-                        // AŞAMA 3: KRİTİK DOĞUM GÜNÜ PARADOKSU SONU (25 Eylül 2011'den öncesi)
-                        else if (now < birthdayLimit) {
-                            reply.innerHTML = "<span style='color:#ff0000; font-weight:bold;'>[KRİTİK ARİZA] PROJE SAHİBİ MEVCUT DEĞİL.</span><br>Sistem zaman akışı 25 Eylül 2011 tarihinin gerisine düştü. Bu yazılımı kodlayan bilinç henüz dünyaya gelmedi. Var olmayan bir geleceğin sistem dosyalarına erişemezsiniz...";
-                            
-                            // Ekranı tamamen yok eden ve kilitleyen nihai görsel çöküş efekti
-                            setTimeout(() => {
-                                document.body.style.animation = "none";
-                                document.body.style.filter = "none";
-                                document.body.innerHTML = `
-                                    <div style="background:#000; width:100vw; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; color:#ff0000; font-family:monospace; font-size:22px; letter-spacing:1px; text-align:center; padding:20px;">
-                                        <div style="font-size:45px; margin-bottom:20px;">[ S S S _ SİLİNDİ ]</div>
-                                        <div>YAZILIMCI HENÜZ DOĞMADI. EVRENSEL PARADOKS OLUŞTU.</div>
-                                    </div>
-                                `;
-                            }, 3000);
-                        } 
-                        // AŞAMA 2: GEÇMİŞ ZAMAN BAŞARILI SONU (2011 - 2026 Arası)
-                        else {
-                            reply.innerHTML = "<span style='color:cyan;'>[BAŞARILI] MÜHÜR KIRILDI!</span><br>Geçmiş zaman tüneline sızarak güvenli arşivi patlattınız. Kodlanan tüm gizli veritabanı logları başarıyla çıkarıldı.";
-                            alert("ZAMAN PARADOKSU BAŞARILI: Arşivi havaya uçurdun!");
+                        // Gelecek Zaman Engeli
+                        if (systemYear >= 2026) {
+                            reply.innerHTML = "<span style='color:#ff3333;'>[HATA] ZAMAN DAMGASI UYUMSUZLUĞU!</span><br>Arşiv mühür koruması gelecek zamanı reddediyor. Gerçek bilgisayarınızın tarihini geçmişe alıp sayfayı yenilemelisiniz.";
+                        } else {
+                            // Başarılı Geçmiş Zaman Sonu (2011 - 2025 Arası)
+                            reply.innerHTML = "<span style='color:#00ffff;'>[BAŞARILI] ZAMAN DUVARI PARÇALANDI!</span><br>Geçmişe sızma başarılı. Kök dizin kilitleri kırıldı, gizli log dosyaları patlatıldı.";
+                            alert("SİSTEM ÇÖKTÜ: Zamanda geriye giderek gizli kodları çıkardın!");
                         }
-
                     } else {
-                        reply.innerHTML = "<span style='color:red;'>[HATA] Hatalı dijital imza anahtarı. Erişim reddedildi.</span>";
+                        reply.innerHTML = "<span style='color:#ff3333;'>[HATA] Geçersiz dijital veri imza şifresi.</span>";
                     }
                 } else if (cmd === 'clear') {
-                    // Terminali temizleme komutu alt yapısı
                     content.innerHTML = "";
                     content.appendChild(input.parentNode);
                     return;
                 } else {
-                    reply.innerHTML = `'${cmd}' komutu iç veya dış bir komut olarak algılanmadı. Dosyayı çıkartmak için 'unzip [şifre]' dizilimini kullanın.`;
+                    reply.innerHTML = `'${cmd}' komutu geçerli bir operasyon olarak tanınmadı. Adımları takip edin.`;
                 }
 
                 content.insertBefore(reply, input.parentNode);
