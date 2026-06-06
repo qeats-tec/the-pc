@@ -29,7 +29,7 @@
             left: 15px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 15px;
             z-index: 5;
         }
         .icon {
@@ -38,8 +38,8 @@
             align-items: center;
             text-align: center;
             cursor: pointer;
-            width: 90px;
-            padding: 8px;
+            width: 95px;
+            padding: 8px 5px;
             border-radius: 4px;
             border: 1px solid transparent;
             transition: background 0.1s;
@@ -49,26 +49,30 @@
             border: 1px solid rgba(255, 255, 255, 0.25);
             backdrop-filter: blur(8px);
         }
-        .icon img {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-            margin-bottom: 5px;
+        .icon svg {
+            width: 36px;
+            height: 36px;
+            margin-bottom: 6px;
         }
         .icon span {
             font-size: 11px;
             color: #ffffff;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
             line-height: 1.3;
+            word-break: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
-        /* AKILLI VE SÜRÜKLENEBİLİR PENCERE SİSTEMİ */
+        /* PENCERE GEOMETRİSİ VE YUMUŞATMALAR */
         .window {
             position: absolute;
-            background: rgba(255, 255, 255, 0.88);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(25px);
             border-radius: 8px;
-            box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             border: 1px solid rgba(255, 255, 255, 0.5);
             display: none;
             flex-direction: column;
@@ -76,7 +80,7 @@
             z-index: 10;
         }
         .window-header {
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.4);
             padding: 10px 14px;
             display: flex;
             justify-content: space-between;
@@ -92,10 +96,9 @@
             gap: 8px;
             font-weight: 600;
         }
-        .window-title img {
+        .window-title svg {
             width: 16px;
             height: 16px;
-            object-fit: contain;
         }
         .window-controls {
             display: flex;
@@ -109,8 +112,6 @@
             cursor: pointer;
         }
         .close-btn { background: #ff5f56; }
-        .min-btn { background: #ffbd2e; }
-        .max-btn { background: #27c93f; }
         
         .window-body {
             padding: 15px;
@@ -119,7 +120,7 @@
             background: #ffffff;
         }
 
-        /* NOT DEFTERİ TASARIMI */
+        /* NOT DEFTERİ ALANI */
         .notepad-textarea {
             width: 100%;
             height: 100%;
@@ -129,13 +130,12 @@
             resize: none;
             font-family: 'Consolas', monospace;
             font-size: 14px;
-            background: transparent;
         }
 
-        /* EDGE TARAYICI TASARIMI */
+        /* EDGE ADRES ÇUBUĞU */
         .browser-bar {
             background: #f3f3f3;
-            padding: 8px;
+            padding: 6px 10px;
             display: flex;
             gap: 10px;
             align-items: center;
@@ -151,14 +151,14 @@
             outline: none;
         }
 
-        /* WINDOWS 11 GÖREV ÇUBUĞU (TASKBAR) */
+        /* GÖREV ÇUBUĞU (TASKBAR) */
         .taskbar {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100vw;
             height: 48px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(243, 243, 243, 0.85);
             backdrop-filter: blur(20px);
             border-top: 1px solid rgba(255, 255, 255, 0.4);
             display: flex;
@@ -173,43 +173,49 @@
             transform: translateX(-50%);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
-        .taskbar-icon {
-            width: 36px;
-            height: 36px;
-            padding: 5px;
+        .taskbar-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
             cursor: pointer;
             border-radius: 4px;
             transition: background 0.1s;
         }
-        .taskbar-icon:hover {
-            background: rgba(255, 255, 255, 0.4);
+        .taskbar-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        .taskbar-btn svg {
+            width: 24px;
+            height: 24px;
         }
 
-        /* GÖREV ÇUBUĞU ARA KISMI (SEARCH BAR) */
+        /* ARAMA ÇUBUĞU TASARIMI */
         .taskbar-search {
             display: flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(0,0,0,0.08);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0,0,0,0.06);
             border-radius: 100px;
             height: 32px;
-            width: 160px;
+            width: 150px;
             padding: 0 12px;
-            font-size: 12px;
-            margin-left: 4px;
-            transition: background 0.2s;
+            margin: 0 4px;
         }
-        .taskbar-search:hover {
-            background: rgba(255, 255, 255, 0.9);
+        .taskbar-search svg {
+            width: 14px;
+            height: 14px;
+            fill: #555;
         }
         .taskbar-search input {
             border: none;
             background: transparent;
             outline: none;
             width: 100%;
-            margin-left: 6px;
+            margin-left: 8px;
             font-size: 12px;
             color: #333;
         }
@@ -221,10 +227,9 @@
             font-size: 11px;
             color: #111;
             font-weight: 500;
-            text-align: right;
         }
 
-        /* ORTALANMIŞ GERÇEKÇİ BAŞLAT MENÜSÜ */
+        /* BAŞLAT MENÜSÜ PANELİ */
         .start-menu {
             position: absolute;
             bottom: 56px;
@@ -232,11 +237,11 @@
             transform: translateX(-50%);
             width: 520px;
             height: 560px;
-            background: rgba(247, 249, 252, 0.93);
+            background: rgba(243, 243, 243, 0.94);
             backdrop-filter: blur(30px);
             border-radius: 12px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-            border: 1px solid rgba(255,255,255,0.6);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.5);
             display: none;
             z-index: 99998;
             flex-direction: column;
@@ -262,7 +267,6 @@
             border-radius: 4px;
             font-size: 11px;
             cursor: pointer;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
         .pinned-grid {
             display: grid;
@@ -280,19 +284,25 @@
             font-size: 11px;
             color: #333;
             border-radius: 4px;
-            padding: 4px 0;
+            padding: 6px 0;
         }
         .pinned-item:hover {
-            background: rgba(0,0,0,0.03);
+            background: rgba(0,0,0,0.04);
         }
-        .pinned-item img {
-            width: 30px;
-            height: 30px;
+        .pinned-item svg {
+            width: 28px;
+            height: 28px;
             margin-bottom: 6px;
-            object-fit: contain;
+        }
+        .pinned-item .empty-icon {
+            width: 28px;
+            height: 28px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 4px;
+            margin-bottom: 6px;
         }
 
-        /* Önerilenler / Alt Bölüm */
+        /* Önerilenler Bölümü */
         .recommended-section {
             border-top: 1px solid rgba(0,0,0,0.06);
             padding-top: 20px;
@@ -304,16 +314,15 @@
             cursor: pointer;
             padding: 8px 12px;
             border-radius: 6px;
-            width: 100%;
-            transition: background 0.15s;
+            width: max-content;
         }
         .rec-item:hover { background: rgba(0,0,0,0.04); }
-        .rec-item img { width: 32px; height: 32px; object-fit: contain; }
+        .rec-item svg { width: 28px; height: 28px; }
         .rec-text h4 { font-size: 12px; font-weight: 600; color: #111; }
         .rec-text p { font-size: 11px; color: #666; }
 
         .start-footer {
-            background: rgba(235, 240, 245, 0.6);
+            background: rgba(230, 230, 230, 0.5);
             height: 60px;
             border-top: 1px solid rgba(0,0,0,0.05);
             display: flex;
@@ -334,14 +343,8 @@
             background: #0078d4;
             border-radius: 50%;
         }
-        .power-btn {
-            font-size: 16px;
-            cursor: pointer;
-            opacity: 0.7;
-        }
-        .power-btn:hover { opacity: 1; }
 
-        /* SİSTEM SİMÜLASYON OPERASYON OVERLAYLERİ */
+        /* OVERLAY EKRANLARI */
         .system-overlay {
             position: fixed;
             top: 0;
@@ -381,16 +384,49 @@
             100% { transform: translate(0.5px, -0.5px); }
         }
 
-        /* OYUN CANVAS */
         #game-canvas { background: #16161e; display: block; border-radius: 4px; }
     </style>
 </head>
 <body>
 
-    <!-- BOOT GİRİŞ EKRANI -->
+    <!-- REUSABLE SVG LOGO ŞABLONLARI -->
+    <svg style="display: none;">
+        <!-- Windows 11 Başlat Logosu -->
+        <g id="icon-windows">
+            <path d="M0 0h11v11H0z" fill="#f25f22"/>
+            <path d="M12 0h11v11H12z" fill="#7fba00"/>
+            <path d="M0 12h11v11H0z" fill="#00a4ef"/>
+            <path d="M12 12h11v11H12z" fill="#ffb900"/>
+        </g>
+        <!-- Microsoft Edge Logosu -->
+        <g id="icon-edge">
+            <path d="M2 18 C2 6, 14 2, 22 7 C28 11, 30 20, 24 26 C18 32, 8 30, 8 20 C8 14, 16 12, 22 15" stroke="#0078d4" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <circle cx="20" cy="18" r="4" fill="#00bcf2"/>
+        </g>
+        <!-- Geri Dönüşüm Kutusu -->
+        <g id="icon-trash">
+            <rect x="6" y="10" width="20" height="20" rx="2" fill="none" stroke="#ffffff" stroke-width="2.5"/>
+            <line x1="3" y1="6" x2="29" y2="6" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M11 6 V3 H21 V6" fill="none" stroke="#ffffff" stroke-width="2.5"/>
+        </g>
+        <!-- Not Defteri -->
+        <g id="icon-notepad">
+            <rect x="4" y="4" width="24" height="24" rx="3" fill="#ffaa00"/>
+            <line x1="8" y1="10" x2="24" y2="10" stroke="#ffffff" stroke-width="2"/>
+            <line x1="8" y1="16" x2="24" y2="16" stroke="#ffffff" stroke-width="2"/>
+            <line x1="8" y1="22" x2="18" y2="22" stroke="#ffffff" stroke-width="2"/>
+        </g>
+        <!-- Ayarlar -->
+        <g id="icon-settings">
+            <circle cx="16" cy="16" r="6" fill="none" stroke="#0078d4" stroke-width="3"/>
+            <path d="M16 2 L16 6 M16 26 L16 30 M2 L16 L6 16 M26 16 L30 16" stroke="#0078d4" stroke-width="3" stroke-linecap="round"/>
+        </g>
+    </svg>
+
+    <!-- BOOT SİSTEM GİRİŞİ -->
     <div id="boot-screen" class="system-overlay">
         <div style="font-size: 20px; margin-bottom: 20px; letter-spacing: 2px;">WINDOWS CHRONO_OS ENGINE</div>
-        <button onclick="initializeOS()" style="background: transparent; border: 1px solid #fff; color: #fff; padding: 8px 22px; font-family: inherit; cursor: pointer; border-radius: 4px;">Başlat</button>
+        <button onclick="initializeOS()" style="background: transparent; border: 1px solid #fff; color: #fff; padding: 8px 22px; font-family: inherit; cursor: pointer; border-radius: 4px;">Sistemi Başlat</button>
     </div>
 
     <!-- ODAK KİLİDİ -->
@@ -399,21 +435,19 @@
         <button onclick="forceFullscreen()" style="background: #0078d4; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px;">Tam Ekrana Dön</button>
     </div>
 
-    <!-- GİZLİ PARADOX PROTOKOLÜ ÖLÜM EKRANI -->
+    <!-- ANOMALİ ÖLÜM EKRANI -->
     <div id="death-screen" class="system-overlay">
         YAZILIMCI HENÜZ DOĞMADI.
     </div>
 
-    <!-- MASAÜSTÜ SİMGELERİ (DÜZELTİLMİŞ DOĞRU LOGOLAR) -->
+    <!-- MASAÜSTÜ SİMGELERİ (TAMAMEN CSS/SVG TABANLI VE SABİT) -->
     <div class="desktop-grid">
         <div class="icon" onclick="openApp('win-pc')">
-            <!-- Gerçek Win11 Boş Geri Dönüşüm Kutusu Logosu -->
-            <img src="https://iobit-tr.com/img/kb/recycle-bin-win11.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/9322/9322830.png'" alt="Recycle Bin">
+            <svg viewBox="0 0 32 32"><use href="#icon-trash"/></svg>
             <span>Geri Dönüşüm Kutusu</span>
         </div>
         <div class="icon" onclick="openApp('win-edge')">
-            <!-- Gerçek Microsoft Edge Logosu -->
-            <img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Edge_Logo_2019.svg" alt="Edge">
+            <svg viewBox="0 0 32 32"><use href="#icon-edge"/></svg>
             <span>Microsoft Edge</span>
         </div>
     </div>
@@ -421,7 +455,7 @@
     <!-- PENCERE: GERİ DÖNÜŞÜM KUTUSU -->
     <div id="win-pc" class="window" style="width: 460px; height: 320px; top: 100px; left: 150px;">
         <div class="window-header">
-            <div class="window-title"><img src="https://cdn-icons-png.flaticon.com/512/9322/9322830.png"> Geri Dönüşüm Kutusu</div>
+            <div class="window-title"><svg viewBox="0 0 32 32" style="stroke: #333;"><use href="#icon-trash"/></svg> Geri Dönüşüm Kutusu</div>
             <div class="window-controls"><button class="control-btn close-btn" onclick="closeApp('win-pc')"></button></div>
         </div>
         <div class="window-body" style="display: flex; justify-content: center; align-items: center; color: #555; font-size: 13px;">
@@ -432,7 +466,7 @@
     <!-- PENCERE: MICROSOFT EDGE -->
     <div id="win-edge" class="window" style="width: 650px; height: 420px; top: 80px; left: 200px;">
         <div class="window-header">
-            <div class="window-title"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Edge_Logo_2019.svg"> Microsoft Edge</div>
+            <div class="window-title"><svg viewBox="0 0 32 32"><use href="#icon-edge"/></svg> Microsoft Edge</div>
             <div class="window-controls"><button class="control-btn close-btn" onclick="closeApp('win-edge')"></button></div>
         </div>
         <div class="browser-bar">
@@ -448,7 +482,7 @@
     <!-- PENCERE: NOT DEFTERİ -->
     <div id="win-notepad" class="window" style="width: 480px; height: 340px; top: 140px; left: 240px;">
         <div class="window-header">
-            <div class="window-title"><img src="https://cdn-icons-png.flaticon.com/512/3720/3720836.png"> Not Defteri</div>
+            <div class="window-title"><svg viewBox="0 0 32 32"><use href="#icon-notepad"/></svg> Not Defteri</div>
             <div class="window-controls"><button class="control-btn close-btn" onclick="closeApp('win-notepad')"></button></div>
         </div>
         <div class="window-body" style="padding: 4px;">
@@ -459,7 +493,7 @@
     <!-- PENCERE: AYARLAR -->
     <div id="win-settings" class="window" style="width: 500px; height: 360px; top: 160px; left: 280px;">
         <div class="window-header">
-            <div class="window-title"><img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Settings_%28Windows_11%29.svg"> Ayarlar</div>
+            <div class="window-title"><svg viewBox="0 0 32 32"><use href="#icon-settings"/></svg> Ayarlar</div>
             <div class="window-controls"><button class="control-btn close-btn" onclick="closeApp('win-settings')"></button></div>
         </div>
         <div class="window-body" style="background: #f3f3f3; padding: 20px;">
@@ -473,7 +507,7 @@
         </div>
     </div>
 
-    <!-- PENCERE: SAVE WILSON MİNİ REFLEKS OYUNU -->
+    <!-- PENCERE: SAVE WILSON MİNİ OYUNU -->
     <div id="win-game" class="window" style="width: 430px; height: 385px; top: 120px; left: 320px;">
         <div class="window-header">
             <div class="window-title">🎮 Save Wilson v1.2</div>
@@ -485,7 +519,7 @@
         </div>
     </div>
 
-    <!-- BAŞLAT MENÜSÜ PANELİ (DOĞRULANMIŞ METİNLER VE TÜMÜ ÇALIŞAN UYGULAMALAR) -->
+    <!-- BAŞLAT MENÜSÜ PANELİ -->
     <div class="start-menu" id="start-panel">
         <div class="start-container">
             <div class="start-header-row">
@@ -493,41 +527,40 @@
                 <button class="all-apps-btn">All apps &gt;</button>
             </div>
             
-            <!-- Doğru Hizalanmış ve Tam Uyumlu Grid Sistemi -->
             <div class="pinned-grid">
                 <div class="pinned-item" onclick="openApp('win-edge'); toggleStart();">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Edge_Logo_2019.svg">
+                    <svg viewBox="0 0 32 32"><use href="#icon-edge"/></svg>
                     <span>Edge</span>
                 </div>
                 <div class="pinned-item" onclick="openApp('win-notepad'); toggleStart();">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3720/3720836.png">
+                    <svg viewBox="0 0 32 32"><use href="#icon-notepad"/></svg>
                     <span>Not Defteri</span>
                 </div>
                 <div class="pinned-item" onclick="openApp('win-settings'); toggleStart();">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Settings_%28Windows_11%29.svg">
+                    <svg viewBox="0 0 32 32"><use href="#icon-settings"/></svg>
                     <span>Ayarlar</span>
                 </div>
                 <div class="pinned-item" onclick="openApp('win-pc'); toggleStart();">
-                    <img src="https://cdn-icons-png.flaticon.com/512/9322/9322830.png">
+                    <svg viewBox="0 0 32 32" style="stroke: #333;"><use href="#icon-trash"/></svg>
                     <span>Çöp Kutusu</span>
                 </div>
                 <div class="pinned-item">
-                    <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" style="opacity: 0.3;">
+                    <div class="empty-icon"></div>
                     <span style="color: #999;">Mail</span>
                 </div>
                 <div class="pinned-item">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3652/3652191.png" style="opacity: 0.3;">
+                    <div class="empty-icon"></div>
                     <span style="color: #999;">Takvim</span>
                 </div>
             </div>
 
-            <!-- Recommended Kısmı -->
+            <!-- Recommended Bölümü -->
             <div class="recommended-section">
                 <div class="start-header-row">
                     <span>Recommended</span>
                 </div>
                 <div class="rec-item" onclick="openApp('win-game'); toggleStart();">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2893/2893834.png">
+                    <div style="font-size: 24px;">🎮</div>
                     <div class="rec-text">
                         <h4>Save Wilson</h4>
                         <p>Son eklenen • Şimdi Oyna</p>
@@ -545,25 +578,33 @@
         </div>
     </div>
 
-    <!-- KUSURSUZ GÖREV ÇUBUĞU (ARAMA ÇUBUKLU VE ORTALANMIŞ) -->
+    <!-- KUSURSUZ GÖREV ÇUBUĞU (SVG TABANLI SİMGELER) -->
     <div class="taskbar">
         <div style="width: 40px;"></div>
         
-        <!-- Merkez Elemanları -->
         <div class="taskbar-center">
             <!-- Başlat Simgesi -->
-            <img class="taskbar-icon" src="https://upload.wikimedia.org/wikipedia/commons/8/87/Windows_logo_-_2021.svg" onclick="toggleStart()">
+            <div class="taskbar-btn" onclick="toggleStart()">
+                <svg viewBox="0 0 23 23"><use href="#icon-windows"/></svg>
+            </div>
             
             <!-- Geri Getirilen Çalışan Arama Çubuğu -->
             <div class="taskbar-search">
-                🔍 <input type="text" placeholder="Ara (edge, notepad, game)" id="taskbar-search-input" onkeydown="triggerTaskbarSearch(event)" autocomplete="off">
+                <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                <input type="text" placeholder="Ara (edge, notepad, game)" id="taskbar-search-input" onkeydown="triggerTaskbarSearch(event)" autocomplete="off">
             </div>
             
-            <div style="width: 10px;"></div>
+            <div style="width: 6px;"></div>
             <!-- İkonlar -->
-            <img class="taskbar-icon" src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Edge_Logo_2019.svg" onclick="openApp('win-edge')">
-            <img class="taskbar-icon" src="https://cdn-icons-png.flaticon.com/512/3720/3720836.png" onclick="openApp('win-notepad')">
-            <img class="taskbar-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/58/Settings_%28Windows_11%29.svg" onclick="openApp('win-settings')">
+            <div class="taskbar-btn" onclick="openApp('win-edge')">
+                <svg viewBox="0 0 32 32"><use href="#icon-edge"/></svg>
+            </div>
+            <div class="taskbar-btn" onclick="openApp('win-notepad')">
+                <svg viewBox="0 0 32 32"><use href="#icon-notepad"/></svg>
+            </div>
+            <div class="taskbar-btn" onclick="openApp('win-settings')">
+                <svg viewBox="0 0 32 32"><use href="#icon-settings"/></svg>
+            </div>
         </div>
 
         <!-- Sağ Alt Sistem Alanı -->
@@ -580,7 +621,7 @@
         let currentYear = 2026;
         let activeZIndex = 20;
 
-        // KRONOLOJİK ANOMALİ MOTORU (SAF DOĞUM GÜNÜ ŞARTI)
+        // SAAT VE ZAMAN KONTROLÜ
         function monitorTimeAnomaly() {
             const dateObj = new Date();
             const hr = String(dateObj.getHours()).padStart(2, '0');
@@ -590,7 +631,6 @@
             document.getElementById('tb-clock').innerText = `${hr}:${mn}`;
             document.getElementById('tb-calendar').innerText = `${dateObj.getDate()}.${dateObj.getMonth() + 1}.${currentYear}`;
 
-            // Gizli Mutlak Sınır (25 Eylül 2011)
             const birthLimit = new Date(2011, 8, 25);
             if (dateObj < birthLimit) {
                 document.getElementById('death-screen').style.display = 'flex';
@@ -630,7 +670,7 @@
         document.addEventListener('fullscreenchange', checkFocusLoss);
         document.addEventListener('webkitfullscreenchange', checkFocusLoss);
 
-        // UYGULAMA PANEL TETİKLEYİCİLERİ
+        // PENCERE TETİKLEYİCİLERİ
         function openApp(id) {
             let win = document.getElementById(id);
             win.style.display = 'flex';
@@ -656,7 +696,7 @@
             }
         }
 
-        // EDGE İÇİ MOCK SEARCH
+        // EDGE ARAMA
         function triggerWebSearch(e) {
             if (e.key === 'Enter') {
                 document.getElementById('browser-core').innerHTML = `
@@ -668,7 +708,7 @@
             }
         }
 
-        // PENCERE SÜRÜKLENME (DRAG) YAPISI
+        // SÜRÜKLENME (DRAG) YAPISI
         document.querySelectorAll('.window').forEach(win => {
             let head = win.querySelector('.window-header');
             let isDragging = false;
@@ -743,7 +783,6 @@
                     if (obsList[i].x < -20) obsList.splice(i, 1);
                 }
             }
-            // DRAW
             ctx.fillStyle = '#1b1b26';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = '#0078d4';
