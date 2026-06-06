@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEHSET_OS - Terminal Terminal</title>
+    <title>Windows 11 Professional</title>
     <style>
-        /* SİSTEM SIFIRLAMA */
+        /* SİSTEM AYARLARI */
         * {
             box-sizing: border-box;
             user-select: none;
@@ -17,20 +17,19 @@
             height: 100vh;
             background: url('pc.png') no-repeat center center;
             background-size: cover;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
             overflow: hidden;
             color: white;
-            transition: filter 0.4s ease;
         }
 
-        /* MASAÜSTÜ İKON MATRİSİ */
+        /* MASAÜSTÜ İKON DÜZENİ */
         .desktop-grid {
             position: absolute;
-            top: 25px;
-            left: 25px;
+            top: 20px;
+            left: 20px;
             display: grid;
             grid-template-columns: repeat(1, 95px);
-            grid-gap: 20px;
+            grid-gap: 15px;
             z-index: 5;
         }
         .icon {
@@ -41,60 +40,55 @@
             cursor: pointer;
             width: 95px;
             padding: 8px;
-            border-radius: 6px;
-            transition: background 0.2s, transform 0.1s;
+            border-radius: 4px;
+            transition: background 0.15s;
         }
         .icon:hover {
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(5px);
-        }
-        .icon:active {
-            transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(4px);
         }
         .icon img {
-            width: 44px;
-            height: 44px;
+            width: 42px;
+            height: 42px;
             object-fit: contain;
-            margin-bottom: 8px;
-            filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.6));
+            margin-bottom: 6px;
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));
         }
         .icon span {
             font-size: 11px;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.95);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
             font-weight: 400;
-            line-height: 1.3;
         }
 
-        /* OS PENCERE YAPISI */
+        /* SÜRÜKLENEBİLİR PENCERE MİMARİSİ */
         .window {
             position: absolute;
-            background: rgba(255, 255, 255, 0.94);
-            backdrop-filter: blur(25px);
-            border-radius: 10px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.35);
-            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(30px);
+            border-radius: 8px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             color: black;
             display: none;
             flex-direction: column;
             overflow: hidden;
-            z-index: 100;
-            min-width: 350px;
-            animation: popIn 0.25s cubic-bezier(0.1, 0.9, 0.2, 1);
-        }
-        @keyframes popIn {
-            from { transform: scale(0.92); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+            z-index: 10;
         }
         .window-header {
-            background: rgba(240, 240, 240, 0.9);
-            padding: 12px 16px;
+            background: rgba(243, 243, 243, 0.9);
+            padding: 10px 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 12px;
-            font-weight: 600;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
+            font-weight: 500;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
             cursor: move;
+        }
+        .window-title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .window-controls {
             display: flex;
@@ -112,83 +106,71 @@
         .max-btn { background: #27c93f; }
         
         .window-body {
-            padding: 18px;
-            flex-grow: 1;
-            overflow-y: auto;
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        /* NOT DEFTERİ & PDF ÖZEL TASARIMLARI */
-        .txt-content {
-            font-family: 'Consolas', monospace;
-            background: #fff;
-            border: 1px solid #ddd;
-            padding: 12px;
-            height: 250px;
-            overflow-y: auto;
-            white-space: pre-wrap;
-            color: #222;
-        }
-        .pdf-content {
-            background: #525659;
-            color: white;
-            padding: 20px;
-            border-radius: 4px;
-            font-family: Arial, sans-serif;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-        }
-
-        /* GÜVENLİ TERMİNAL (CMD.EXE) */
-        .terminal-window {
-            background: #050505 !important;
-            color: #33ff33 !important;
-            font-family: 'Courier New', Courier, monospace;
-            border: 1px solid rgba(51, 255, 51, 0.4) !important;
-        }
-        .terminal-header {
-            background: #111 !important;
-            color: #33ff33 !important;
-            border-bottom: 1px solid #33ff33 !important;
-        }
-        .terminal-body {
-            background: #050505;
-            height: 300px;
             padding: 15px;
-            overflow-y: auto;
+            flex-grow: 1;
+            overflow: auto;
+            background: white;
+        }
+
+        /* UYGULAMA İÇERİK STİLLERİ */
+        /* Dosya Gezgini */
+        .explorer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 15px;
+        }
+        .folder-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        /* Not Defteri */
+        .notepad-textarea {
+            width: 100%;
+            height: 100%;
+            min-height: 200px;
+            border: none;
+            outline: none;
+            resize: none;
+            font-family: 'Consolas', monospace;
             font-size: 14px;
         }
-        .terminal-input-line {
+        /* Tarayıcı (Chrome) */
+        .browser-bar {
+            background: #f1f3f4;
+            padding: 6px;
             display: flex;
+            gap: 8px;
             align-items: center;
-            margin-top: 8px;
         }
-        .terminal-input-line input {
-            background: transparent;
-            border: none;
-            color: #33ff33;
-            font-family: inherit;
-            font-size: inherit;
-            outline: none;
+        .browser-url {
+            background: white;
+            border: 1px solid #chchch;
+            border-radius: 16px;
+            padding: 4px 12px;
             flex-grow: 1;
-            padding-left: 6px;
+            font-size: 12px;
+            outline: none;
         }
 
-        /* WINDOWS TASKBAR */
+        /* WINDOWS GÖREV ÇUBUĞU (TASKBAR) */
         .taskbar {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100vw;
             height: 48px;
-            background: rgba(243, 243, 243, 0.86);
+            background: rgba(243, 243, 243, 0.85);
             backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
-            z-index: 9999;
+            padding: 0 15px;
+            z-index: 99999;
         }
         .taskbar-center {
             position: absolute;
@@ -196,41 +178,58 @@
             transform: translateX(-50%);
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
         .taskbar-icon {
             width: 28px;
             height: 28px;
             cursor: pointer;
+            transition: transform 0.1s;
         }
-        .search-bar-sim {
-            background: white;
-            border: 1px solid rgba(0,0,0,0.15);
-            border-radius: 100px;
-            height: 32px;
-            width: 180px;
-            display: flex;
-            align-items: center;
-            padding: 0 12px;
-            font-size: 12px;
-            color: #555;
-        }
-        .search-bar-sim input {
-            border: none;
-            outline: none;
-            width: 100%;
-            margin-left: 6px;
-            font-size: 12px;
-        }
+        .taskbar-icon:hover { transform: scale(1.1); }
         .taskbar-right {
             text-align: right;
-            font-size: 12px;
-            color: #111;
+            font-size: 11px;
+            color: #222;
             font-weight: 500;
+            line-height: 1.3;
         }
 
-        /* OVERLAY EKRANLARI */
-        .overlay-screen {
+        /* WINDOWS 11 BAŞLAT MENÜSÜ */
+        .start-menu {
+            position: absolute;
+            bottom: 55px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 500px;
+            height: 400px;
+            background: rgba(243, 243, 243, 0.94);
+            backdrop-filter: blur(25px);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            display: none;
+            z-index: 99998;
+            padding: 25px;
+            color: black;
+        }
+        .start-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 15px;
+        }
+        .start-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .start-item img { width: 32px; height: 32px; margin-bottom: 6px; }
+
+        /* SİSTEM EKRANLARI */
+        .fullscreen-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -240,275 +239,434 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 99999;
+            z-index: 1000000;
         }
         #boot-screen { background: #000; color: white; font-family: monospace; }
-        #lock-screen { background: #1a0000; color: #ff3333; font-family: monospace; display: none; text-align: center; }
-
-        /* PARADOX MODU (2011 - 2025 GEÇMİŞ ZAMAN EFEKTİ) */
-        .paradox-active {
-            animation: screenTremor 0.2s infinite;
-            filter: saturate(2) contrast(1.3) hue-rotate(30deg) !important;
+        #lock-screen { background: #0b0f19; color: #ff4d4d; font-family: monospace; display: none; text-align: center; }
+        
+        /* GİZLİ PARADOX GLITCH EFEKTİ */
+        .paradox-glitch {
+            animation: glitchAnimation 0.3s infinite alternate;
+            filter: hue-rotate(45deg) saturate(1.2) !important;
         }
-        @keyframes screenTremor {
-            0% { transform: translate(0, 0); }
-            50% { transform: translate(1px, -1px); }
-            100% { transform: translate(-1px, 1px); }
+        @keyframes glitchAnimation {
+            0% { transform: translate(0,0); }
+            100% { transform: translate(1px, -1px); }
         }
 
-        /* ÖLÜM EKRANI (< 2011 MUTLAK PARADOKS) */
+        /* DOĞUM GÜNÜ ÖLÜM EKRANI */
         #death-screen {
             background: #000 !important;
             color: #ff0000;
             font-family: 'Courier New', monospace;
-            font-size: 42px;
+            font-size: 45px;
             font-weight: bold;
-            letter-spacing: 4px;
+            letter-spacing: 5px;
             display: none;
             text-align: center;
-            z-index: 1000000;
-            animation: pulseGlow 0.1s infinite alternate;
+            animation: tremor 0.1s infinite;
         }
-        @keyframes pulseGlow {
-            0% { transform: scale(1); filter: blur(0px); opacity: 0.95; }
-            100% { transform: scale(1.01); filter: blur(1px); opacity: 1; }
+        @keyframes tremor {
+            0% { transform: translate(0,0); }
+            50% { transform: translate(-1px, 1px); }
+            100% { transform: translate(1px, -1px); }
+        }
+
+        /* CANVAS OYUN ALANI */
+        #game-canvas {
+            background: #111;
+            display: block;
+            margin: 0 auto;
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
 
-    <!-- BOOT EKRANI -->
-    <div id="boot-screen" class="overlay-screen">
-        <div style="font-size: 20px; margin-bottom: 20px; letter-spacing: 3px;">KÖK SİSTEM ÇEKİRDEĞİ BAŞLATILIYOR...</div>
-        <button onclick="startSystem()" style="background: transparent; border: 1px solid #33ff33; color: #33ff33; padding: 10px 25px; font-family: inherit; cursor: pointer; border-radius: 4px;">SİSTEMİ TAM EKRAN ÇALIŞTIR</button>
+    <!-- SİSTEM BOOT YÜKLEME ALANI -->
+    <div id="boot-screen" class="fullscreen-overlay">
+        <div style="font-size: 24px; margin-bottom: 25px; letter-spacing: 2px;">SYSTEM_BOOT_SEQUENCE</div>
+        <button onclick="bootPC()" style="background: transparent; border: 1px solid #fff; color: #fff; padding: 10px 24px; font-family: inherit; cursor: pointer; border-radius: 4px;">SİSTEMİ BAŞLAT</button>
     </div>
 
-    <!-- GÜVENLİK DUVARI KİLİDİ (TAM EKRANDAN ÇIKINCA) -->
-    <div id="lock-screen" class="overlay-screen">
-        <h1 style="font-size: 32px; margin-bottom: 15px;">⚠️ SİMÜLASYON BAĞLANTI HATASI ⚠️</h1>
-        <p style="color: #bbb; max-width: 500px; font-size: 14px;">Zaman döngüsünün kararlılığı için pencere odak kontrolü tam ekranda kalmalıdır.</p>
-        <button onclick="goFullscreen()" style="background: #ff3333; color: white; border: none; padding: 10px 20px; cursor: pointer; margin-top: 20px; font-weight: bold; border-radius: 4px;">TAM EKRANA GERİ DÖN</button>
+    <!-- TAM EKRAN KİLİT EKRANI -->
+    <div id="lock-screen" class="fullscreen-overlay">
+        <h1 style="font-size: 30px; margin-bottom: 10px;">⚠️ PENCERE ODAK HATASI ⚠️</h1>
+        <p style="color: #aaa; font-size: 14px;">Simülasyon bütünlüğünü korumak için tam ekrandan çıkılamaz.</p>
+        <button onclick="requestFullscreenMode()" style="background: #1a73e8; color: white; border: none; padding: 10px 20px; margin-top: 20px; cursor: pointer; border-radius: 4px; font-weight: bold;">TAM EKRANA DÖN</button>
     </div>
 
-    <!-- MUTLAK DOĞUM GÜNÜ PARADOKSU ÖLÜM EKRANI -->
-    <div id="death-screen" class="overlay-screen">
+    <!-- HİÇBİR İPUCU OLMAYAN SAF ÖLÜM EKRANI -->
+    <div id="death-screen" class="fullscreen-overlay">
         YAZILIMCI HENÜZ DOĞMADI.
     </div>
 
-    <!-- MASAÜSTÜ SİMÜLASYONU -->
+    <!-- MASAÜSTÜ KISAYOLLARI -->
     <div class="desktop-grid">
-        <div class="icon" onclick="openWindow('win-folder')">
-            <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Klasör">
-            <span>masaüstü</span>
+        <div class="icon" onclick="openWindow('win-pc')">
+            <img src="https://cdn-icons-png.flaticon.com/512/1150/1150616.png" alt="Bu PC">
+            <span>Bu Bilgisayar</span>
         </div>
-        <div class="icon" onclick="openWindow('win-pdf')">
-            <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF">
-            <span style="color: #ff6666; font-weight: bold;">UGURSUZ_RAPOR.pdf</span>
+        <div class="icon" onclick="openWindow('win-notepad')">
+            <img src="https://cdn-icons-png.flaticon.com/512/2965/2965358.png" alt="Not Defteri">
+            <span>Not Defteri</span>
         </div>
-    </div>
-
-    <!-- PENCERE: DOSYA GEZGİNİ -->
-    <div id="win-folder" class="window" style="width: 450px; height: 350px; top: 15%; left: 15%;">
-        <div class="window-header">
-            <span>Klasör Dizin: /desktop/files</span>
-            <div class="window-controls"><button class="control-btn close-btn" onclick="closeWindow('win-folder')"></button></div>
+        <div class="icon" onclick="openWindow('win-chrome')">
+            <img src="https://cdn-icons-png.flaticon.com/512/888/888846.png" alt="Chrome">
+            <span>Google Chrome</span>
         </div>
-        <div class="window-body" style="background: #f9f9f9; display: flex; gap: 20px;">
-            <div style="text-align: center; cursor: pointer;" onclick="openWindow('win-txt')">
-                <img src="https://cdn-icons-png.flaticon.com/512/2991/2991112.png" width="40">
-                <div style="font-size: 11px; margin-top: 4px; font-weight: 500;">HIKAYE_LOG.txt</div>
-            </div>
-            <div style="text-align: center; opacity: 0.5;">
-                <img src="https://cdn-icons-png.flaticon.com/512/2991/2991116.png" width="40">
-                <div style="font-size: 11px; margin-top: 4px;">Gizemli_Arsiv.zip</div>
-            </div>
+        <div class="icon" onclick="openWindow('win-game')">
+            <img src="https://cdn-icons-png.flaticon.com/512/2893/2893834.png" alt="Oyun">
+            <span style="color: #55ff55; font-weight: bold;">Save Wilson</span>
         </div>
     </div>
 
-    <!-- PENCERE: GENİŞLETİLMİŞ HİKAYE DOSYASI (TXT) -->
-    <div id="win-txt" class="window" style="width: 550px; height: 400px; top: 20%; left: 25%;">
+    <!-- PENCERE: BU BİLGİSAYAR -->
+    <div id="win-pc" class="window" style="width: 500px; height: 350px; top: 100px; left: 150px;">
         <div class="window-header">
-            <span>HIKAYE_LOG.txt - Not Defteri</span>
-            <div class="window-controls"><button class="control-btn close-btn" onclick="closeWindow('win-txt')"></button></div>
+            <div class="window-title">📂 Bu Bilgisayar</div>
+            <div class="window-controls"><button class="control-btn close-btn" onclick="closeWindow('win-pc')"></button></div>
         </div>
         <div class="window-body">
-            <div class="txt-content">LOG ENJEKSİYONU // ERİŞİM: KÖK KULLANICI (QEAT)
-
-Her şey arka planda çalışan o sessiz çekirdek veritabanı projesi "Qore" ve emirlerime itaat eden "Cenqaver" modüllerinin entegrasyonuyla başladı. Başlarda her şey stabil ritim düzenekleri (Qsu!) gibi akıp gidiyordu. Ancak koda sızan zaman anomalisi tüm mimariyi bozdu.
-
-Zaman çizgisi bir düğüm gibi kendi üzerine katlanıyor. Bu anomalinin yayılmasını engellemek için sistemin kök dizin arşivini tamamen kilitledim. Geri dönüşü olmayan veri mühürleme anahtarını (9 haneli dijital kimlik) doğrudan masaüstündeki o lanetli kırmızı PDF dokümanının derinliklerine kazıdım.
-
-Eğer bu arşiv dosyasını şu anki zaman diliminde (2026 ve sonrasında) açmaya zorlarsan sistem güvenlik duvarı zaman aşımı hatası verecek ve seni dışarı fırlatacaktır. Dijital kilidi patlatmanın tek bir yolu var: Gerçek makinenin saat ve tarih ayarlarına sızmalı, zaman mekanizmasını geriye (2011 ile 2025 yılları arasına) bükmeli ve sayfayı yenilemelisin.
-
-DİKKAT: Zaman akışında sakın aşırıya kaçma. Eğer kronolojik sınırı 25 Eylül 2011 tarihinin gerisine düşürürsen, bu sistem kodlarını ve evreni inşa eden bilinç henüz dünyaya gelmemiş olacak. O sınır geçildiğinde mutlak paradoks başlar, tüm sistem kökten silinir ve geriye sadece hiçlik kalır...</div>
-        </div>
-    </div>
-
-    <!-- PENCERE: ŞİFRELİ KÖK RAPORU (PDF) -->
-    <div id="win-pdf" class="window" style="width: 500px; height: 380px; top: 10%; left: 40%;">
-        <div class="window-header">
-            <span>Adobe PDF Reader - UGURSUZ_RAPOR.pdf</span>
-            <div class="window-controls"><button class="control-btn close-btn" onclick="closeWindow('win-pdf')"></button></div>
-        </div>
-        <div class="window-body" style="background: #323639; padding: 15px;">
-            <div class="pdf-content">
-                <h4 style="color: #ff5555; border-bottom: 1px solid #ff5555; padding-bottom: 5px; margin-bottom: 10px;">KRİTİK GÜVENLİK DOKÜMANI</h4>
-                <p style="font-size: 12px; color: #ccc; margin-bottom: 15px;"><strong>BELGE DİZİN NO:</strong> SEC_REG_8842</p>
-                <p style="margin-bottom: 15px; font-size: 13px; line-height: 1.5;">Yapılan spektral kod taramaları sonucunda, kök dizinde yer alan şifreli mühür arşivinin dijital imza anahtarı aşağıda doğrulanmıştır:</p>
-                
-                <div style="background: rgba(0,0,0,0.4); padding: 12px; text-align: center; font-size: 22px; font-family: monospace; color: #ff3333; border: 1px dashed #ff3333; letter-spacing: 3px; margin-bottom: 15px;">
-                    958431775
+            <div class="explorer-grid">
+                <div class="folder-item">
+                    <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" width="40">
+                    <span>Belgeler</span>
                 </div>
-                
-                <p style="font-size: 11px; color: #aaa;">*Not: Bu anahtar kodlayıcının doğum miladına duyarlıdır. Sınır aşılırsa veri yok oluş protokolü otomatik tetiklenir.</p>
+                <div class="folder-item">
+                    <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" width="40">
+                    <span>İndirilenler</span>
+                </div>
+                <div class="folder-item">
+                    <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" width="40">
+                    <span>Görseller</span>
+                </div>
+                <div class="folder-item">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2899/2899648.png" width="40">
+                    <span>Yerel Disk (C:)</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- PENCERE: TERMİNAL (CMD.EXE) -->
-    <div id="win-terminal" class="window terminal-window" style="width: 620px; height: 380px; top: 30%; left: 20%;">
-        <div class="window-header terminal-header">
-            <span>KÖK TERMİNAL // CMD.EXE</span>
-            <div class="window-controls"><button class="control-btn close-btn" onclick="closeWindow('win-terminal')"></button></div>
+    <!-- PENCERE: GERÇEK YAZILABİLİR NOT DEFTERİ -->
+    <div id="win-notepad" class="window" style="width: 450px; height: 320px; top: 150px; left: 250px;">
+        <div class="window-header">
+            <div class="window-title">📝 Adsız - Not Defteri</div>
+            <div class="window-controls"><button class="control-btn close-btn" onclick="closeWindow('win-notepad')"></button></div>
         </div>
-        <div class="window-body terminal-body" id="term-content">
-            <p>[DEHSET_OS KÖK VERİ GEZGİNİ YÜKLENDİ]</p>
-            <p>Arşivi çıkartmak için: 'unzip [anahtar_kodu]' yazın.</p>
-            <div class="terminal-input-line">
-                <span>C:\Users\Admin></span>
-                <input type="text" id="term-input" onkeydown="runCommand(event)" autocomplete="off">
+        <div class="window-body" style="padding: 0;">
+            <textarea class="notepad-textarea" placeholder="Buraya istediğiniz notları yazabilirsiniz..."></textarea>
+        </div>
+    </div>
+
+    <!-- PENCERE: SIMULE GOOGLE CHROME -->
+    <div id="win-chrome" class="window" style="width: 650px; height: 420px; top: 80px; left: 200px;">
+        <div class="window-header">
+            <div class="window-title">🌐 Google Chrome</div>
+            <div class="window-controls"><button class="control-btn close-btn" onclick="closeWindow('win-chrome')"></button></div>
+        </div>
+        <div class="browser-bar">
+            <span>🏠 ↻</span>
+            <input type="text" class="browser-url" value="https://www.google.com" id="browser-input" onkeydown="browseSearch(event)">
+        </div>
+        <div class="window-body" id="browser-viewport" style="background: #f8f9fa; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+            <h2 style="color: #4285F4; font-size: 32px; margin-bottom: 15px;">Google</h2>
+            <input type="text" placeholder="Google'da arama yapın veya bir URL yazın" style="width: 70%; padding: 8px 15px; border-radius: 20px; border: 1px solid #ddd; outline: none; box-shadow: 0 1px 6px rgba(32,33,36,0.28);">
+        </div>
+    </div>
+
+    <!-- PENCERE: KÜÇÜK OYUN (SAVE WILSON) -->
+    <div id="win-game" class="window" style="width: 430px; height: 380px; top: 120px; left: 300px;">
+        <div class="window-header">
+            <div class="window-title">🎮 Save Wilson v1.0</div>
+            <div class="window-controls"><button class="control-btn close-btn" onclick="closeWindow('win-game')"></button></div>
+        </div>
+        <div class="window-body" style="background: #222; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <canvas id="game-canvas" width="400" height="280"></canvas>
+            <div style="color: #aaa; font-size: 11px; margin-top: 8px;">Zıplamak için Boşluk (SPACE) tuşuna veya Ekrana tıklayın.</div>
+        </div>
+    </div>
+
+    <!-- WINDOWS 11 BAŞLAT MENÜSÜ GÖRÜNÜMÜ -->
+    <div class="start-menu" id="start-panel">
+        <div style="font-weight: 600; font-size: 14px; margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">Sabitlenmiş Uygulamalar</div>
+        <div class="start-grid">
+            <div class="start-item" onclick="openWindow('win-pc'); toggleStartMenu();">
+                <img src="https://cdn-icons-png.flaticon.com/512/1150/1150616.png">
+                <span>Bu PC</span>
+            </div>
+            <div class="start-item" onclick="openWindow('win-notepad'); toggleStartMenu();">
+                <img src="https://cdn-icons-png.flaticon.com/512/2965/2965358.png">
+                <span>Not Defteri</span>
+            </div>
+            <div class="start-item" onclick="openWindow('win-chrome'); toggleStartMenu();">
+                <img src="https://cdn-icons-png.flaticon.com/512/888/888846.png">
+                <span>Chrome</span>
+            </div>
+            <div class="start-item" onclick="openWindow('win-game'); toggleStartMenu();">
+                <img src="https://cdn-icons-png.flaticon.com/512/2893/2893834.png">
+                <span>Save Wilson</span>
             </div>
         </div>
     </div>
 
-    <!-- TASKBAR GÖREV ÇUBUĞU -->
+    <!-- TASKBAR ALT ÇUBUK -->
     <div class="taskbar">
-        <div style="font-size:12px; color:#333;">⚡ Secure Environment Mode</div>
+        <div style="font-size: 12px; color: #333; font-weight: 500;">🟢 Windows 11 Active</div>
+        
         <div class="taskbar-center">
-            <img class="taskbar-icon" src="https://cdn-icons-png.flaticon.com/512/732/732221.png">
-            <div class="search-bar-sim">
-                🔍 <input type="text" placeholder="Ara (cmd yazın)" onkeydown="checkSearch(event)" autocomplete="off">
-            </div>
+            <!-- BAŞLAT LOGOSU -->
+            <img class="taskbar-icon" src="https://cdn-icons-png.flaticon.com/512/732/732221.png" onclick="toggleStartMenu()" alt="Start">
+            <img class="taskbar-icon" src="https://cdn-icons-png.flaticon.com/512/1150/1150616.png" onclick="openWindow('win-pc')">
+            <img class="taskbar-icon" src="https://cdn-icons-png.flaticon.com/512/2965/2965358.png" onclick="openWindow('win-notepad')">
+            <img class="taskbar-icon" src="https://cdn-icons-png.flaticon.com/512/888/888846.png" onclick="openWindow('win-chrome')">
+            <img class="taskbar-icon" src="https://cdn-icons-png.flaticon.com/512/2893/2893834.png" onclick="openWindow('win-game')">
         </div>
+
         <div class="taskbar-right">
-            <div id="time-display" style="font-weight: 600;">00:00</div>
-            <div id="date-display" style="font-size: 11px;">01.01.2026</div>
+            <div id="tb-time" style="color: black; font-weight: 600;">00:00</div>
+            <div id="tb-date" style="color: #444;">01.01.2026</div>
         </div>
     </div>
 
     <script>
-        let systemYear = 2026;
+        let currentSimulationYear = 2026;
+        let globalZIndex = 10;
 
-        // TARİH MOTORU VE MUTLAK DOĞUM GÜNÜ KONTROLÜ
-        function checkSystemChronology() {
-            const now = new Date();
-            systemYear = now.getFullYear();
-            
-            // Doğum Günü Limiti: 25 Eylül 2011 (Ay indeksi 0'dan başlar, Eylül = 8)
-            const birthdayLimit = new Date(2011, 8, 25);
+        // 1. DİNAMİK SAAT VE GİZLİ DOĞUM GÜNÜ MOTORU (HİÇBİR İPUCU YOK)
+        function runSystemClock() {
+            const dateObj = new Date();
+            const hrs = String(dateObj.getHours()).padStart(2, '0');
+            const mins = String(dateObj.getMinutes()).padStart(2, '0');
+            currentSimulationYear = dateObj.getFullYear();
 
-            // Saat Gösterimi Güncelleme
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            document.getElementById('time-display').innerText = `${hours}:${minutes}`;
-            document.getElementById('date-display').innerText = `${now.getDate()}.${now.getMonth() + 1}.${systemYear}`;
+            document.getElementById('tb-time').innerText = `${hrs}:${mins}`;
+            document.getElementById('tb-date').innerText = `${dateObj.getDate()}.${dateObj.getMonth() + 1}.${currentSimulationYear}`;
 
-            // 1. KONTROL: 25 EYLÜL 2011 ÖNCESİ (MUTLAK KORKU EKRANI)
-            if (now < birthdayLimit) {
+            // Mutlak Milat Sınırı: 25 Eylül 2011 (Ay 0 tabanlı olduğu için Eylül = 8)
+            const targetMilestone = new Date(2011, 8, 25);
+
+            if (dateObj < targetMilestone) {
                 document.getElementById('death-screen').style.display = 'flex';
                 document.body.classList.remove('paradox-active');
-                return true; // Paradoks kilitlendi
             } else {
                 document.getElementById('death-screen').style.display = 'none';
+                if (currentSimulationYear < 2026) {
+                    document.body.classList.add('paradox-glitch');
+                } else {
+                    document.body.classList.remove('paradox-glitch');
+                }
             }
-
-            // 2. KONTROL: GÜVENLİ PARADOKS ARALIĞI (2011 - 2025 ARASI VİRÜSLÜ MOD)
-            if (systemYear < 2026) {
-                document.body.classList.add('paradox-active');
-            } else {
-                document.body.classList.remove('paradox-active');
-            }
-            return false;
         }
-        
-        setInterval(checkSystemChronology, 1000);
-        const isDeadOnLoad = checkSystemChronology();
+        setInterval(runSystemClock, 1000);
+        runSystemClock();
 
-        // TAM EKRAN BAŞLATMA
-        function startSystem() {
-            goFullscreen();
+        // 2. BOOT VE TAM EKRAN GÜVENLİĞİ
+        function bootPC() {
+            requestFullscreenMode();
             document.getElementById('boot-screen').style.display = 'none';
+            initGame(); // Oyunu yükle
         }
 
-        function goFullscreen() {
-            let el = document.documentElement;
-            if (el.requestFullscreen) el.requestFullscreen();
-            else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+        function requestFullscreenMode() {
+            let documentDoc = document.documentElement;
+            if (documentDoc.requestFullscreen) documentDoc.requestFullscreen();
+            else if (documentDoc.webkitRequestFullscreen) documentDoc.webkitRequestFullscreen();
         }
 
-        function exitHandler() {
+        function checkFullscreenChanges() {
             if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-                if (document.getElementById('death-screen').style.display !== 'flex') {
+                if (document.getElementById('death-screen').style.display !== 'flex' && document.getElementById('boot-screen').style.display !== 'none') {
                     document.getElementById('lock-screen').style.display = 'flex';
                 }
             } else {
                 document.getElementById('lock-screen').style.display = 'none';
             }
         }
-        document.addEventListener('fullscreenchange', exitHandler);
-        document.addEventListener('webkitfullscreenchange', exitHandler);
+        document.addEventListener('fullscreenchange', checkFullscreenChanges);
+        document.addEventListener('webkitfullscreenchange', checkFullscreenChanges);
 
-        // PENCERE KONTROLLERİ
-        function openWindow(id) { document.getElementById(id).style.display = 'flex'; }
+        // 3. PENCERE KONTROLLERİ VE DRAG & DROP (PENCERE TAŞIMA) SİSTEMİ
+        function openWindow(id) {
+            let win = document.getElementById(id);
+            win.style.display = 'flex';
+            globalZIndex++;
+            win.style.zIndex = globalZIndex;
+        }
         function closeWindow(id) { document.getElementById(id).style.display = 'none'; }
+        function toggleStartMenu() {
+            let start = document.getElementById('start-panel');
+            start.style.display = (start.style.display === 'block') ? 'none' : 'block';
+        }
 
-        // TASKBAR ARA DETEKTÖRÜ
-        function checkSearch(e) {
-            if (e.key === 'Enter' && e.target.value.trim().toLowerCase() === 'cmd') {
-                openWindow('win-terminal');
-                e.target.value = '';
+        // Tüm pencereleri sürüklenebilir yapma işlevi
+        document.querySelectorAll('.window').forEach(win => {
+            let header = win.querySelector('.window-header');
+            let isMoving = false;
+            let currentX, currentY, initialX, initialY;
+
+            win.addEventListener('mousedown', () => {
+                globalZIndex++;
+                win.style.zIndex = globalZIndex;
+            });
+
+            header.addEventListener('mousedown', (e) => {
+                isMoving = true;
+                initialX = e.clientX - win.offsetLeft;
+                initialY = e.clientY - win.offsetTop;
+                document.addEventListener('mousemove', dragWindow);
+                document.addEventListener('mouseup', dropWindow);
+            });
+
+            function dragWindow(e) {
+                if (!isMoving) return;
+                win.style.left = (e.clientX - initialX) + 'px';
+                win.style.top = (e.clientY - initialY) + 'px';
+            }
+
+            function dropWindow() {
+                isMoving = false;
+                document.removeEventListener('mousemove', dragWindow);
+                document.removeEventListener('mouseup', dropWindow);
+            }
+        });
+
+        // CHROME MOCK MOTORU
+        function browseSearch(e) {
+            if (e.key === 'Enter') {
+                let val = e.target.value.toLowerCase();
+                let port = document.getElementById('browser-viewport');
+                if (val.includes('github')) {
+                    port.innerHTML = `<div style="padding:20px; text-align:left; color:#333;"><h3>GitHub - QeatHub Project Repository</h3><p style="color:#666;">Status: Repository active. Last push 2026.</p></div>`;
+                } else {
+                    port.innerHTML = `<div style="padding:20px; text-align:center; color:#555;"><h3>Simüle Edilen Ağda "${e.target.value}" Bulunamadı</h3><p style="font-size:12px; margin-top:10px;">Çevrimdışı yerel simülasyon modu aktif.</p></div>`;
+                }
             }
         }
 
-        // TERMİNAL KOMUT MOTORU
-        function runCommand(e) {
-            if (e.key === 'Enter') {
-                let input = e.target;
-                let content = document.getElementById('term-content');
-                let fullCmd = input.value.trim();
-                let cmdParts = fullCmd.split(' ');
-                let cmd = cmdParts[0].toLowerCase();
+        // 4. MASAÜSTÜ MİNİ OYUN MOTORU: "SAVE WILSON"
+        let canvas, ctx;
+        let gamePlayer, gameObstacles, gameScore, isGameOver, gameInterval;
 
-                let line = document.createElement('p');
-                line.innerHTML = `C:\\Users\\Admin> ${fullCmd}`;
-                content.insertBefore(line, input.parentNode);
+        function initGame() {
+            canvas = document.getElementById('game-canvas');
+            ctx = canvas.getContext('2d');
+            
+            // Kontroller hem klavye hem tıklama
+            window.addEventListener('keydown', (e) => { if (e.key === ' ' || e.key === 'Spacebar') playerJump(); });
+            canvas.addEventListener('mousedown', playerJump);
 
-                let reply = document.createElement('p');
+            resetGame();
+            setInterval(gameLoop, 1000 / 60); // 60 FPS Döngüsü
+        }
 
-                if (cmd === 'unzip') {
-                    if (cmdParts[1] === '958431775') {
-                        // Gelecek Zaman Engeli
-                        if (systemYear >= 2026) {
-                            reply.innerHTML = "<span style='color:#ff3333;'>[HATA] ZAMAN DAMGASI UYUMSUZLUĞU!</span><br>Arşiv mühür koruması gelecek zamanı reddediyor. Gerçek bilgisayarınızın tarihini geçmişe alıp sayfayı yenilemelisiniz.";
-                        } else {
-                            // Başarılı Geçmiş Zaman Sonu (2011 - 2025 Arası)
-                            reply.innerHTML = "<span style='color:#00ffff;'>[BAŞARILI] ZAMAN DUVARI PARÇALANDI!</span><br>Geçmişe sızma başarılı. Kök dizin kilitleri kırıldı, gizli log dosyaları patlatıldı.";
-                            alert("SİSTEM ÇÖKTÜ: Zamanda geriye giderek gizli kodları çıkardın!");
-                        }
-                    } else {
-                        reply.innerHTML = "<span style='color:#ff3333;'>[HATA] Geçersiz dijital veri imza şifresi.</span>";
-                    }
-                } else if (cmd === 'clear') {
-                    content.innerHTML = "";
-                    content.appendChild(input.parentNode);
-                    return;
-                } else {
-                    reply.innerHTML = `'${cmd}' komutu geçerli bir operasyon olarak tanınmadı. Adımları takip edin.`;
+        function resetGame() {
+            gamePlayer = { x: 50, y: 230, width: 24, height: 24, gravity: 0.6, velocity: 0, jumpPower: -11, isGrounded: false };
+            gameObstacles = [];
+            gameScore = 0;
+            isGameOver = false;
+        }
+
+        function playerJump() {
+            if (isGameOver) {
+                resetGame();
+                return;
+            }
+            if (gamePlayer.isGrounded) {
+                gamePlayer.velocity = gamePlayer.jumpPower;
+                gamePlayer.isGrounded = false;
+            }
+        }
+
+        function gameLoop() {
+            updateGameData();
+            drawGameGraphics();
+        }
+
+        function updateGameData() {
+            if (isGameOver) return;
+
+            // Fizik Kuralları
+            gamePlayer.velocity += gamePlayer.gravity;
+            gamePlayer.y += gamePlayer.velocity;
+
+            // Zemin Kontrolü (Yükselen su çizgisi simülasyonu tabanı)
+            if (gamePlayer.y >= 230) {
+                gamePlayer.y = 230;
+                gamePlayer.velocity = 0;
+                gamePlayer.isGrounded = true;
+            }
+
+            // Engelleri Üretme
+            if (Math.random() < 0.015 && (gameObstacles.length === 0 || gameObstacles[gameObstacles.length - 1].x < 260)) {
+                gameObstacles.push({ x: 400, y: 234, width: 16, height: 20, speed: 4.5 + (gameScore * 0.1) });
+            }
+
+            // Engelleri Güncelleme
+            for (let i = gameObstacles.length - 1; i >= 0; i--) {
+                gameObstacles[i].x -= gameObstacles[i].speed;
+
+                // Çarpışma Testi
+                if (
+                    gamePlayer.x < gameObstacles[i].x + gameObstacles[i].width &&
+                    gamePlayer.x + gamePlayer.width > gameObstacles[i].x &&
+                    gamePlayer.y < gameObstacles[i].y + gameObstacles[i].height &&
+                    gamePlayer.y + gamePlayer.height > gameObstacles[i].y
+                ) {
+                    isGameOver = true;
                 }
 
-                content.insertBefore(reply, input.parentNode);
-                input.value = '';
-                content.scrollTop = content.scrollHeight;
+                // Skor Ekleme
+                if (gameObstacles[i].x + gameObstacles[i].width < gamePlayer.x && !gameObstacles[i].scored) {
+                    gameScore++;
+                    gameObstacles[i].scored = true;
+                }
+
+                // Ekrandan çıkanları silme
+                if (gameObstacles[i].x < -20) {
+                    gameObstacles.splice(i, 1);
+                }
+            }
+        }
+
+        function drawGameGraphics() {
+            // Arka Planı Temizle
+            ctx.fillStyle = '#1e1e24';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Alt Zemin / Su Tehlike Sınırı
+            ctx.fillStyle = '#4a90e2';
+            ctx.fillRect(0, 250, canvas.width, 30);
+
+            // Karakterimiz: Wilson (Pixel Kare Görünüm)
+            ctx.fillStyle = '#e2b44a';
+            ctx.fillRect(gamePlayer.x, gamePlayer.y, gamePlayer.width, gamePlayer.height);
+            // Göz Detayı
+            ctx.fillStyle = '#000';
+            ctx.fillRect(gamePlayer.x + 14, gamePlayer.y + 4, 4, 4);
+
+            // Engeller: Gelen Su Blokları / Engeller
+            ctx.fillStyle = '#ff4a4a';
+            for (let obs of gameObstacles) {
+                ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+            }
+
+            // Skor Panosu
+            ctx.fillStyle = '#fff';
+            ctx.font = '14px monospace';
+            ctx.fillText(`SKOR: ${gameScore}`, 15, 25);
+
+            // Oyun Bitti Ekranı
+            if (isGameOver) {
+                ctx.fillStyle = 'rgba(0,0,0,0.75)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#ff4d4d';
+                ctx.font = '20px monospace';
+                ctx.fillText("WILSON ELENDİ!", 120, 130);
+                ctx.fillStyle = '#fff';
+                ctx.font = '12px monospace';
+                ctx.fillText("Yeniden başlamak için tıklayın.", 100, 160);
             }
         }
     </script>
