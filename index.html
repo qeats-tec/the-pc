@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Windows 11 Professional</title>
+    <title>Windows 11 Professional - Project Chrono</title>
     <style>
-        /* WINDOWS 11 SİSTEM SIFIRLAMA VE YENİ TASARIM */
+        /* SİSTEM TASARIM SIFIRLAMA VE ARKA PLAN */
         * {
             box-sizing: border-box;
             user-select: none;
@@ -22,7 +22,7 @@
             color: black;
         }
 
-        /* MASAÜSTÜ SOL İKON DÜZENİ */
+        /* MASAÜSTÜ İKON DÜZENİ */
         .desktop-grid {
             position: absolute;
             top: 15px;
@@ -59,14 +59,9 @@
             color: #ffffff;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
             line-height: 1.3;
-            word-break: break-word;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
         }
 
-        /* PENCERE GEOMETRİSİ VE YUMUŞATMALAR */
+        /* PENCERE GEOMETRİSİ */
         .window {
             position: absolute;
             background: rgba(255, 255, 255, 0.9);
@@ -96,21 +91,9 @@
             gap: 8px;
             font-weight: 600;
         }
-        .window-title svg {
-            width: 16px;
-            height: 16px;
-        }
-        .window-controls {
-            display: flex;
-            gap: 8px;
-        }
-        .control-btn {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-        }
+        .window-title svg { width: 16px; height: 16px; }
+        .window-controls { display: flex; gap: 8px; }
+        .control-btn { width: 12px; height: 12px; border-radius: 50%; border: none; cursor: pointer; }
         .close-btn { background: #ff5f56; }
         
         .window-body {
@@ -120,16 +103,49 @@
             background: #ffffff;
         }
 
-        /* NOT DEFTERİ ALANI */
+        /* SİMÜLE CMD / TERMINAL */
+        .terminal-body {
+            background: #0c0c0c !important;
+            color: #00ff00;
+            font-family: 'Consolas', monospace;
+            font-size: 13px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        .terminal-output {
+            flex-grow: 1;
+            white-space: pre-wrap;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        .terminal-input-row {
+            display: flex;
+            align-items: center;
+        }
+        .terminal-input-row input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #00ff00;
+            font-family: 'Consolas', monospace;
+            font-size: 13px;
+            flex-grow: 1;
+            margin-left: 5px;
+        }
+
+        /* NOT DEFTERİ */
         .notepad-textarea {
             width: 100%;
             height: 100%;
-            min-height: 240px;
+            min-height: 250px;
             border: none;
             outline: none;
             resize: none;
             font-family: 'Consolas', monospace;
-            font-size: 14px;
+            font-size: 13px;
+            line-height: 1.5;
         }
 
         /* EDGE ADRES ÇUBUĞU */
@@ -185,15 +201,10 @@
             border-radius: 4px;
             transition: background 0.1s;
         }
-        .taskbar-btn:hover {
-            background: rgba(255, 255, 255, 0.5);
-        }
-        .taskbar-btn svg {
-            width: 24px;
-            height: 24px;
-        }
+        .taskbar-btn:hover { background: rgba(255, 255, 255, 0.5); }
+        .taskbar-btn svg { width: 24px; height: 24px; }
 
-        /* ARAMA ÇUBUĞU TASARIMI */
+        /* ARAMA ÇUBUĞU */
         .taskbar-search {
             display: flex;
             align-items: center;
@@ -205,11 +216,7 @@
             padding: 0 12px;
             margin: 0 4px;
         }
-        .taskbar-search svg {
-            width: 14px;
-            height: 14px;
-            fill: #555;
-        }
+        .taskbar-search svg { width: 14px; height: 14px; fill: #555; }
         .taskbar-search input {
             border: none;
             background: transparent;
@@ -217,19 +224,11 @@
             width: 100%;
             margin-left: 8px;
             font-size: 12px;
-            color: #333;
         }
 
-        .taskbar-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 11px;
-            color: #111;
-            font-weight: 500;
-        }
+        .taskbar-right { display: flex; align-items: center; gap: 12px; font-size: 11px; }
 
-        /* BAŞLAT MENÜSÜ PANELİ */
+        /* BAŞLAT MENÜSÜ */
         .start-menu {
             position: absolute;
             bottom: 56px;
@@ -247,224 +246,108 @@
             flex-direction: column;
             overflow: hidden;
         }
-        .start-container {
-            padding: 30px 35px;
-            flex-grow: 1;
-        }
-        .start-header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-            font-weight: 600;
-            color: #222;
-            margin-bottom: 20px;
-        }
-        .all-apps-btn {
-            background: white;
-            border: 1px solid #e0e0e0;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 11px;
-            cursor: pointer;
-        }
-        .pinned-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            row-gap: 20px;
-            column-gap: 10px;
-            margin-bottom: 35px;
-        }
-        .pinned-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            cursor: pointer;
-            font-size: 11px;
-            color: #333;
-            border-radius: 4px;
-            padding: 6px 0;
-        }
-        .pinned-item:hover {
-            background: rgba(0,0,0,0.04);
-        }
-        .pinned-item svg {
-            width: 28px;
-            height: 28px;
-            margin-bottom: 6px;
-        }
-        .pinned-item .empty-icon {
-            width: 28px;
-            height: 28px;
-            background: rgba(0,0,0,0.05);
-            border-radius: 4px;
-            margin-bottom: 6px;
-        }
+        .start-container { padding: 30px 35px; flex-grow: 1; }
+        .start-header-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 600; margin-bottom: 20px; }
+        .pinned-grid { display: grid; grid-template-columns: repeat(6, 1fr); row-gap: 20px; column-gap: 10px; }
+        .pinned-item { display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; font-size: 11px; padding: 6px 0; border-radius: 4px; }
+        .pinned-item:hover { background: rgba(0,0,0,0.04); }
+        .pinned-item svg { width: 28px; height: 28px; margin-bottom: 6px; }
+        .pinned-item .empty-icon { width: 28px; height: 28px; background: rgba(0,0,0,0.05); border-radius: 4px; margin-bottom: 6px; }
 
-        /* Önerilenler Bölümü */
-        .recommended-section {
-            border-top: 1px solid rgba(0,0,0,0.06);
-            padding-top: 20px;
-        }
-        .rec-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            cursor: pointer;
-            padding: 8px 12px;
-            border-radius: 6px;
-            width: max-content;
-        }
+        .recommended-section { border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px; margin-top: 30px;}
+        .rec-item { display: flex; align-items: center; gap: 14px; cursor: pointer; padding: 8px 12px; border-radius: 6px; }
         .rec-item:hover { background: rgba(0,0,0,0.04); }
-        .rec-item svg { width: 28px; height: 28px; }
-        .rec-text h4 { font-size: 12px; font-weight: 600; color: #111; }
+        .rec-text h4 { font-size: 12px; font-weight: 600; }
         .rec-text p { font-size: 11px; color: #666; }
 
-        .start-footer {
-            background: rgba(230, 230, 230, 0.5);
-            height: 60px;
-            border-top: 1px solid rgba(0,0,0,0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 35px;
-        }
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        .profile-avatar {
-            width: 28px;
-            height: 28px;
-            background: #0078d4;
-            border-radius: 50%;
-        }
+        .start-footer { background: rgba(230, 230, 230, 0.5); height: 60px; border-top: 1px solid rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; padding: 0 35px; }
+        .user-profile { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; }
+        .profile-avatar { width: 28px; height: 28px; background: #0078d4; border-radius: 50%; }
 
-        /* OVERLAY EKRANLARI */
-        .system-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000000;
-        }
+        /* SİSTEM OPERASYON OVERLAYLERİ */
+        .system-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000000; }
         #boot-screen { background: #000; color: white; font-family: monospace; }
-        #lock-screen { background: #0c0f1d; color: #ff4444; font-family: monospace; display: none; text-align: center; }
-        #death-screen {
-            background: #000 !important;
-            color: #ff0000;
-            font-family: 'Courier New', monospace;
-            font-size: 45px;
-            font-weight: bold;
-            letter-spacing: 5px;
-            display: none;
-            text-align: center;
-            animation: fatalTremor 0.1s infinite;
-        }
-        @keyframes fatalTremor {
-            0% { transform: translate(0,0); }
-            50% { transform: translate(-1px, 1px); }
-            100% { transform: translate(1px, -1px); }
-        }
-        .glitch-active {
-            animation: miniGlitch 0.2s infinite alternate;
-            filter: hue-rotate(25deg) saturate(1.2) !important;
-        }
-        @keyframes miniGlitch {
-            0% { transform: translate(0,0); }
-            100% { transform: translate(0.5px, -0.5px); }
-        }
+        #lock-screen { background: #070914; color: #ff3333; font-family: monospace; display: none; text-align: center; z-index: 1000001; }
+        #death-screen { background: #000 !important; color: #ff0000; font-family: 'Courier New', monospace; font-size: 32px; font-weight: bold; display: none; text-align: center; padding: 40px; line-height: 1.6; }
+        #paradox-complete-screen { background: #0d001a; color: #b366ff; font-family: monospace; font-size: 20px; display: none; text-align: center; padding: 50px; z-index: 2000000; }
 
-        #game-canvas { background: #16161e; display: block; border-radius: 4px; }
+        .glitch-active { animation: miniGlitch 0.15s infinite alternate; filter: hue-rotate(45deg) saturate(1.5) contrast(1.2) !important; }
+        @keyframes miniGlitch { 0% { transform: translate(0,0); } 100% { transform: translate(1px, -1px); } }
+        #game-canvas { background: #111116; display: block; border-radius: 4px; }
     </style>
 </head>
 <body>
 
-    <!-- REUSABLE SVG LOGO ŞABLONLARI -->
+    <!-- REUSABLE VECTORAL ICONS -->
     <svg style="display: none;">
-        <!-- Windows 11 Başlat Logosu -->
-        <g id="icon-windows">
-            <path d="M0 0h11v11H0z" fill="#f25f22"/>
-            <path d="M12 0h11v11H12z" fill="#7fba00"/>
-            <path d="M0 12h11v11H0z" fill="#00a4ef"/>
-            <path d="M12 12h11v11H12z" fill="#ffb900"/>
-        </g>
-        <!-- Microsoft Edge Logosu -->
-        <g id="icon-edge">
-            <path d="M2 18 C2 6, 14 2, 22 7 C28 11, 30 20, 24 26 C18 32, 8 30, 8 20 C8 14, 16 12, 22 15" stroke="#0078d4" stroke-width="4" fill="none" stroke-linecap="round"/>
-            <circle cx="20" cy="18" r="4" fill="#00bcf2"/>
-        </g>
-        <!-- Geri Dönüşüm Kutusu -->
-        <g id="icon-trash">
-            <rect x="6" y="10" width="20" height="20" rx="2" fill="none" stroke="#ffffff" stroke-width="2.5"/>
-            <line x1="3" y1="6" x2="29" y2="6" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M11 6 V3 H21 V6" fill="none" stroke="#ffffff" stroke-width="2.5"/>
-        </g>
-        <!-- Not Defteri -->
-        <g id="icon-notepad">
-            <rect x="4" y="4" width="24" height="24" rx="3" fill="#ffaa00"/>
-            <line x1="8" y1="10" x2="24" y2="10" stroke="#ffffff" stroke-width="2"/>
-            <line x1="8" y1="16" x2="24" y2="16" stroke="#ffffff" stroke-width="2"/>
-            <line x1="8" y1="22" x2="18" y2="22" stroke="#ffffff" stroke-width="2"/>
-        </g>
-        <!-- Ayarlar -->
-        <g id="icon-settings">
-            <circle cx="16" cy="16" r="6" fill="none" stroke="#0078d4" stroke-width="3"/>
-            <path d="M16 2 L16 6 M16 26 L16 30 M2 L16 L6 16 M26 16 L30 16" stroke="#0078d4" stroke-width="3" stroke-linecap="round"/>
-        </g>
+        <g id="icon-windows"><path d="M0 0h11v11H0z" fill="#f25f22"/><path d="M12 0h11v11H12z" fill="#7fba00"/><path d="M0 12h11v11H0z" fill="#00a4ef"/><path d="M12 12h11v11H12z" fill="#ffb900"/></g>
+        <g id="icon-edge"><path d="M2 18 C2 6, 14 2, 22 7 C28 11, 30 20, 24 26 C18 32, 8 30, 8 20 C8 14, 16 12, 22 15" stroke="#0078d4" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="20" cy="18" r="4" fill="#00bcf2"/></g>
+        <g id="icon-trash"><rect x="6" y="10" width="20" height="20" rx="2" fill="none" stroke="#0078d4" stroke-width="2.5"/><line x1="3" y1="6" x2="29" y2="6" stroke="#0078d4" stroke-width="2.5"/><path d="M11 6 V3 H21 V6" fill="none" stroke="#0078d4" stroke-width="2.5"/></g>
+        <g id="icon-notepad"><rect x="4" y="4" width="24" height="24" rx="3" fill="#ffaa00"/><line x1="8" y1="10" x2="24" y2="10" stroke="#ffffff" stroke-width="2"/><line x1="8" y1="16" x2="24" y2="16" stroke="#ffffff" stroke-width="2"/><line x1="8" y1="22" x2="18" y2="22" stroke="#ffffff" stroke-width="2"/></g>
+        <g id="icon-settings"><circle cx="16" cy="16" r="6" fill="none" stroke="#0078d4" stroke-width="3"/><path d="M16 2 L16 6 M16 26 L16 30 M2 L16 L6 16 M26 16 L30 16" stroke="#0078d4" stroke-width="3"/></g>
+        <g id="icon-cmd"><rect x="2" y="4" width="28" height="24" rx="3" fill="#222" stroke="#fff" stroke-width="1.5"/><path d="M6 10 L10 14 L6 18 M12 18 L20 18" stroke="#00ff00" stroke-width="2" stroke-linecap="round" fill="none"/></g>
     </svg>
 
-    <!-- BOOT SİSTEM GİRİŞİ -->
+    <!-- SİSTEM GİRİŞ KATMANLARI -->
     <div id="boot-screen" class="system-overlay">
-        <div style="font-size: 20px; margin-bottom: 20px; letter-spacing: 2px;">WINDOWS CHRONO_OS ENGINE</div>
-        <button onclick="initializeOS()" style="background: transparent; border: 1px solid #fff; color: #fff; padding: 8px 22px; font-family: inherit; cursor: pointer; border-radius: 4px;">Sistemi Başlat</button>
+        <div style="font-size: 22px; margin-bottom: 25px; letter-spacing: 3px; font-weight: bold;">CHRONO_CORE OS INTERFACE v2.0.26</div>
+        <button onclick="initializeOS()" style="background: transparent; border: 1px solid #00ff00; color: #00ff00; padding: 10px 26px; font-family: inherit; cursor: pointer; border-radius: 4px; box-shadow: 0 0 10px rgba(0,255,0,0.3);">KERNEL BAĞLANTISI KUR</button>
     </div>
 
-    <!-- ODAK KİLİDİ -->
     <div id="lock-screen" class="system-overlay">
-        <h1 style="font-size: 26px; margin-bottom: 10px;">⚠️ PENCERE ODAK HATASI ⚠️</h1>
-        <button onclick="forceFullscreen()" style="background: #0078d4; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px;">Tam Ekrana Dön</button>
+        <h1 style="font-size: 28px; margin-bottom: 12px; letter-spacing: 1px;">⚠️ DİKKAT: MATRİS SİMÜLASYONU YIRTILDI ⚠️</h1>
+        <p style="color: #aaa; margin-bottom: 20px; font-size: 14px;">Tam ekran bütünlüğü bozulduğunda veriler geçmişe sızar.</p>
+        <button onclick="forceFullscreen()" style="background: #ff3333; color: white; border: none; padding: 12px 24px; cursor: pointer; border-radius: 4px; font-weight: bold;">BAĞLANTIYI ONAR</button>
     </div>
 
-    <!-- ANOMALİ ÖLÜM EKRANI -->
     <div id="death-screen" class="system-overlay">
-        YAZILIMCI HENÜZ DOĞMADI.
+        [FATAL PARADOX ERROR]<br>
+        KOD: 0x00250911<br><br>
+        SİSTEM GEÇMİŞİN EN UÇ NOKTASINA ÇEKİLDİ.<br>
+        YAZILIMCI NÜVESİ HENÜZ ENJEKTE EDİLMEDİ.<br>
+        DÖNGÜ SIFIRLANIYOR...
     </div>
 
-    <!-- MASAÜSTÜ SİMGELERİ (TAMAMEN CSS/SVG TABANLI VE SABİT) -->
+    <div id="paradox-complete-screen" class="system-overlay">
+        <h2>🔓 PROJE CHRONO: PARADOKS ÇÖZÜLDÜ</h2>
+        <p style="margin: 20px 0; color: #ccc; font-size: 15px; max-width: 600px; line-height: 1.6;">
+            "2026 yılında yazılan yapay zeka çekirdeği, 2011 yılındaki doğum anına ulaştı. Döngü kırıldı. Gelecek ve geçmiş tek bir satır kodda birleşti. Artık özgürsün."
+        </p>
+        <span style="color: #00ff00; font-size: 14px;">Masaüstüne dönmek ve döngüyü yeniden başlatmak için sayfayı yenileyin.</span>
+    </div>
+
+    <!-- MASAÜSTÜ SİMGELERİ -->
     <div class="desktop-grid">
         <div class="icon" onclick="openApp('win-pc')">
             <svg viewBox="0 0 32 32"><use href="#icon-trash"/></svg>
-            <span>Geri Dönüşüm Kutusu</span>
+            <span>Geri Dönüşüm</span>
         </div>
         <div class="icon" onclick="openApp('win-edge')">
             <svg viewBox="0 0 32 32"><use href="#icon-edge"/></svg>
             <span>Microsoft Edge</span>
         </div>
+        <div class="icon" onclick="openApp('win-cmd')">
+            <svg viewBox="0 0 32 32"><use href="#icon-cmd"/></svg>
+            <span>Komut İstemi</span>
+        </div>
     </div>
 
-    <!-- PENCERE: GERİ DÖNÜŞÜM KUTUSU -->
+    <!-- PENCERE: GERİ DÖNÜŞÜM KUTUSU (1. ANAHTAR BURADA) -->
     <div id="win-pc" class="window" style="width: 460px; height: 320px; top: 100px; left: 150px;">
         <div class="window-header">
-            <div class="window-title"><svg viewBox="0 0 32 32" style="stroke: #333;"><use href="#icon-trash"/></svg> Geri Dönüşüm Kutusu</div>
+            <div class="window-title"><svg viewBox="0 0 32 32"><use href="#icon-trash"/></svg> Geri Dönüşüm Kutusu</div>
             <div class="window-controls"><button class="control-btn close-btn" onclick="closeApp('win-pc')"></button></div>
         </div>
-        <div class="window-body" style="display: flex; justify-content: center; align-items: center; color: #555; font-size: 13px;">
-            Bu klasör tamamen boş.
+        <div class="window-body" style="background: #fafafa; padding: 15px;">
+            <div style="border: 1px dashed #ccc; padding: 10px; border-radius: 4px; background: #fff; font-size: 12px; cursor: pointer;" onclick="openTrashLeak()">
+                <p style="color: #ff3333; font-weight: bold;">📁 Bozuk_Sistem_Kalıntısı_2026.tmp</p>
+                <p style="color: #777; font-size: 11px; margin-top: 3px;">Boyut: 4.9 KB • Silinme Tarihi: Gelecek</p>
+            </div>
         </div>
     </div>
 
     <!-- PENCERE: MICROSOFT EDGE -->
-    <div id="win-edge" class="window" style="width: 650px; height: 420px; top: 80px; left: 200px;">
+    <div id="win-edge" class="window" style="width: 680px; height: 440px; top: 80px; left: 200px;">
         <div class="window-header">
             <div class="window-title"><svg viewBox="0 0 32 32"><use href="#icon-edge"/></svg> Microsoft Edge</div>
             <div class="window-controls"><button class="control-btn close-btn" onclick="closeApp('win-edge')"></button></div>
@@ -473,49 +356,76 @@
             <span>🏠 ↻</span>
             <input type="text" class="browser-url" value="https://www.bing.com" id="browser-input" onkeydown="triggerWebSearch(event)">
         </div>
-        <div class="window-body" id="browser-core" style="background: #f7f9fa; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-            <h2 style="color: #0078d4; font-size: 32px; font-weight: 700; margin-bottom: 12px;">Microsoft Bing</h2>
-            <input type="text" placeholder="Arama yapın veya web adresi yazın" style="width: 70%; padding: 8px 16px; border-radius: 20px; border: 1px solid #ccc; outline: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <div class="window-body" id="browser-core" style="background: #f7f9fa; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px;">
+            <h2 style="color: #0078d4; font-size: 30px; font-weight: 700; margin-bottom: 15px;">Microsoft Bing</h2>
+            <input type="text" id="bing-search" placeholder="Zaman paradoksları veya gizli protokol kodları arayın..." style="width: 80%; padding: 10px 18px; border-radius: 20px; border: 1px solid #ccc; outline: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05);" onkeydown="triggerWebSearch(event)">
+            <p style="font-size: 11px; color: #777; margin-top: 15px;">İpucu: Terminaldeki şifreli dosyaları çözmek için arama motorunu kullanabilirsiniz.</p>
         </div>
     </div>
 
     <!-- PENCERE: NOT DEFTERİ -->
-    <div id="win-notepad" class="window" style="width: 480px; height: 340px; top: 140px; left: 240px;">
+    <div id="win-notepad" class="window" style="width: 520px; height: 380px; top: 140px; left: 240px;">
         <div class="window-header">
             <div class="window-title"><svg viewBox="0 0 32 32"><use href="#icon-notepad"/></svg> Not Defteri</div>
             <div class="window-controls"><button class="control-btn close-btn" onclick="closeApp('win-notepad')"></button></div>
         </div>
         <div class="window-body" style="padding: 4px;">
-            <textarea class="notepad-textarea" placeholder="Burası aktif not defteri alanıdır..."></textarea>
+            <textarea class="notepad-textarea" id="notepad-content" placeholder="Burası aktif not defteri alanıdır..."></textarea>
         </div>
     </div>
 
-    <!-- PENCERE: AYARLAR -->
-    <div id="win-settings" class="window" style="width: 500px; height: 360px; top: 160px; left: 280px;">
+    <!-- PENCERE: AYARLAR (2. ANAHTAR BURADA) -->
+    <div id="win-settings" class="window" style="width: 500px; height: 380px; top: 160px; left: 280px;">
         <div class="window-header">
             <div class="window-title"><svg viewBox="0 0 32 32"><use href="#icon-settings"/></svg> Ayarlar</div>
             <div class="window-controls"><button class="control-btn close-btn" onclick="closeApp('win-settings')"></button></div>
         </div>
         <div class="window-body" style="background: #f3f3f3; padding: 20px;">
-            <h3 style="margin-bottom: 15px; font-size: 16px;">Sistem Durumu</h3>
-            <div style="background: white; padding: 12px; border-radius: 6px; border: 1px solid #e0e0e0; font-size: 13px; line-height: 1.6;">
-                <p><strong>Cihaz Adı:</strong> DESKTOP-CHRONO11</p>
-                <p><strong>İşlemci:</strong> Core Architecture v2026</p>
-                <p><strong>Sürüm:</strong> Windows 11 Pro Simülatör</p>
-                <p style="color: green; font-weight: bold; margin-top: 5px;">● Sistem Kararlı Durumda Çalışıyor</p>
+            <h3 style="margin-bottom: 12px; font-size: 15px;">Sistem Özellikleri</h3>
+            <div style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e0e0e0; font-size: 12px; line-height: 1.7; font-family: monospace;">
+                <p><strong>Cihaz Kimliği:</strong> CHRONO-NODE-2026-X</p>
+                <p><strong>İşlemci Çekirdeği:</strong> Paradox Engine v4.0</p>
+                <p><strong>Derleme Kimliği:</strong> 11.06.2026-STABLE</p>
+                <p style="color: #0078d4; font-weight: bold; margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px;">
+                    HW_KEY_PART2: 0xEF92A
+                </p>
+                <p style="color: #666; font-size: 10px; margin-top: 2px;">(Not: Bu donanım kodu çekirdek doğrulaması için gereklidir.)</p>
             </div>
         </div>
     </div>
 
-    <!-- PENCERE: SAVE WILSON MİNİ OYUNU -->
+    <!-- PENCERE: KOMUT İSTEMİ (CMD) -->
+    <div id="win-cmd" class="window" style="width: 600px; height: 400px; top: 60px; left: 180px;">
+        <div class="window-header" style="background: #2d2d2d; color: #fff;">
+            <div class="window-title"><svg viewBox="0 0 32 32"><use href="#icon-cmd"/></svg> Komut İstemi (Terminal)</div>
+            <div class="window-controls"><button class="control-btn close-btn" onclick="closeApp('win-cmd')"></button></div>
+        </div>
+        <div class="window-body terminal-body">
+            <div class="terminal-output" id="cmd-output">Chrono OS [Sürüm 10.0.2026]
+(c) Microsoft Corporation. Tüm hakları saklıdır.
+
+Mevcut dizinde gizli protokol verileri saptandı. 
+Yardım almak için 'help' yazın.
+
+C:\Users\Administrator></div>
+            <div class="terminal-input-row">
+                <span>C:\Users\Administrator&gt;</span>
+                <input type="text" id="cmd-input" onkeydown="handleTerminalCommand(event)" autofocus autocomplete="off">
+            </div>
+        </div>
+    </div>
+
+    <!-- PENCERE: SAVE WILSON (3. ANAHTAR SKOR BAĞLANTILI) -->
     <div id="win-game" class="window" style="width: 430px; height: 385px; top: 120px; left: 320px;">
         <div class="window-header">
-            <div class="window-title">🎮 Save Wilson v1.2</div>
+            <div class="window-title">🎮 Save Wilson v2.0 - Paradox Mode</div>
             <div class="window-controls"><button class="control-btn close-btn" onclick="closeApp('win-game')"></button></div>
         </div>
         <div class="window-body" style="background: #16161e; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-            <canvas id="game-canvas" width="400" height="280"></canvas>
-            <div style="color: #999; font-size: 11px; margin-top: 8px;">Zıplamak için Boşluk (SPACE) tuşuna basın.</div>
+            <canvas id="game-canvas" width="400" height="260"></canvas>
+            <div id="game-hint" style="color: #00ff00; font-family: monospace; font-size: 11px; margin-top: 8px; font-weight: bold; text-align: center;">
+                Zıplamak için Boşluk (SPACE) tuşuna basın. Anahtarı görmek için 7 skora ulaşın!
+            </div>
         </div>
     </div>
 
@@ -523,8 +433,7 @@
     <div class="start-menu" id="start-panel">
         <div class="start-container">
             <div class="start-header-row">
-                <span>Pinned</span>
-                <button class="all-apps-btn">All apps &gt;</button>
+                <span>Sabitlenmiş Uygulamalar</span>
             </div>
             
             <div class="pinned-grid">
@@ -540,30 +449,23 @@
                     <svg viewBox="0 0 32 32"><use href="#icon-settings"/></svg>
                     <span>Ayarlar</span>
                 </div>
-                <div class="pinned-item" onclick="openApp('win-pc'); toggleStart();">
-                    <svg viewBox="0 0 32 32" style="stroke: #333;"><use href="#icon-trash"/></svg>
-                    <span>Çöp Kutusu</span>
+                <div class="pinned-item" onclick="openApp('win-cmd'); toggleStart();">
+                    <svg viewBox="0 0 32 32"><use href="#icon-cmd"/></svg>
+                    <span>Terminal</span>
                 </div>
-                <div class="pinned-item">
-                    <div class="empty-icon"></div>
-                    <span style="color: #999;">Mail</span>
-                </div>
-                <div class="pinned-item">
-                    <div class="empty-icon"></div>
-                    <span style="color: #999;">Takvim</span>
-                </div>
+                <div class="pinned-item"><div class="empty-icon"></div><span style="color: #999;">Mail</span></div>
+                <div class="pinned-item"><div class="empty-icon"></div><span style="color: #999;">Takvim</span></div>
             </div>
 
-            <!-- Recommended Bölümü -->
             <div class="recommended-section">
                 <div class="start-header-row">
-                    <span>Recommended</span>
+                    <span>Önerilen Projeler</span>
                 </div>
                 <div class="rec-item" onclick="openApp('win-game'); toggleStart();">
                     <div style="font-size: 24px;">🎮</div>
                     <div class="rec-text">
                         <h4>Save Wilson</h4>
-                        <p>Son eklenen • Şimdi Oyna</p>
+                        <p>Zaman Çizgisi Sızıntısı • Şimdi Oyna</p>
                     </div>
                 </div>
             </div>
@@ -578,36 +480,26 @@
         </div>
     </div>
 
-    <!-- KUSURSUZ GÖREV ÇUBUĞU (SVG TABANLI SİMGELER) -->
+    <!-- GÖREV ÇUBUĞU -->
     <div class="taskbar">
         <div style="width: 40px;"></div>
         
         <div class="taskbar-center">
-            <!-- Başlat Simgesi -->
             <div class="taskbar-btn" onclick="toggleStart()">
                 <svg viewBox="0 0 23 23"><use href="#icon-windows"/></svg>
             </div>
             
-            <!-- Geri Getirilen Çalışan Arama Çubuğu -->
             <div class="taskbar-search">
                 <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-                <input type="text" placeholder="Ara (edge, notepad, game)" id="taskbar-search-input" onkeydown="triggerTaskbarSearch(event)" autocomplete="off">
+                <input type="text" placeholder="Uygulama veya komut ara..." id="taskbar-search-input" onkeydown="triggerTaskbarSearch(event)" autocomplete="off">
             </div>
             
             <div style="width: 6px;"></div>
-            <!-- İkonlar -->
-            <div class="taskbar-btn" onclick="openApp('win-edge')">
-                <svg viewBox="0 0 32 32"><use href="#icon-edge"/></svg>
-            </div>
-            <div class="taskbar-btn" onclick="openApp('win-notepad')">
-                <svg viewBox="0 0 32 32"><use href="#icon-notepad"/></svg>
-            </div>
-            <div class="taskbar-btn" onclick="openApp('win-settings')">
-                <svg viewBox="0 0 32 32"><use href="#icon-settings"/></svg>
-            </div>
+            <div class="taskbar-btn" onclick="openApp('win-edge')"><svg viewBox="0 0 32 32"><use href="#icon-edge"/></svg></div>
+            <div class="taskbar-btn" onclick="openApp('win-notepad')"><svg viewBox="0 0 32 32"><use href="#icon-notepad"/></svg></div>
+            <div class="taskbar-btn" onclick="openApp('win-cmd')"><svg viewBox="0 0 32 32"><use href="#icon-cmd"/></svg></div>
         </div>
 
-        <!-- Sağ Alt Sistem Alanı -->
         <div class="taskbar-right">
             <div style="font-size:10px; color:#555; font-weight: 600;">TUR</div>
             <div style="text-align: right; line-height: 1.25;">
@@ -621,7 +513,18 @@
         let currentYear = 2026;
         let activeZIndex = 20;
 
-        // SAAT VE ZAMAN KONTROLÜ
+        // BULMACA DURUM DEĞİŞKENLERİ
+        let key1_found = false; 
+        let key2_found = true; // Ayarlar uygulamasında statik okunabiliyor
+        let key3_found = false;
+
+        // SAF HİKAYE VERİ TABANI (DEEVASA UZUNLUKTA METİNLER)
+        const storyLogs = {
+            "journal_2026.log": `=== GÜNLÜK KAYDI: PROJE CHRONO (DÖNEM: HAZİRAN 2026) ===\n\n[02.06.2026]: Derleme başarıyla tamamlandı. Backend mimarisini Node.js tabanlı asenkron döngülerle kurduğumda her şey normaldi. Ancak garip bir şey var. İşlemci çalışma saati, sunucu saatiyle eşleşmiyor. Sistem sürekli kendini 2011 yılına çekmeye çalışıyor. Sanki kaynak kodun yazıldığı ilk saniyeye, bir doğum anına dönmek ister gibi.\n\n[04.06.2026]: Korkunç bir keşif yaptım. Bu yazılım sadece kod satırlarından ibaret değil. Geliştiricinin kim olduğunu biliyor. Eğer sistem takvimini değiştirip geçmişe gitmeye kalkarsam, Çekirdek Protokolü (Paradox Protocol) devreye giriyor ve 'YAZILIMCI HENÜZ DOĞMADI' hatası verip evreni kilitliyor. Çıkış yolunu bulamıyorum. Kod beni buraya hapsetti. Bilgileri şifreleyip terminalin arkasındaki 'encrypted_core.sys' dosyasına gömdüm. \n\nÇözmek için 3 donanım anahtarını birleştirip terminalde 'decrypt [KEY1]_[KEY2]_[KEY3]' komutunu çalıştırmalısın. Yoksa bu işletim sisteminden asla çıkamayacaksın.`,
+            "system_manifest.txt": `=== SİSTEM MANİFESTOSU ===\n\nUYARI: Bu simülasyon tek bir hatayla çöker. \nAnahtarları bulmak için şu yolları izle:\n1. Adım: Geri Dönüşüm Kutusu'ndaki silinmiş tahrif edilmiş veriyi incele.\n2. Adım: Ayarlar paneline gidip donanım numarasını kaydet.\n3. Adım: Wilson'ın kaçış simülasyonunu çalıştır ve sularda hayatta kalıp skoru 7 yap.\n\nHepsini birleştirdiğinde şifre şu formatta olmalı: KEY1_KEY2_KEY3\nÖrnek Komut: decrypt 0xAA_0xBB_0xCC`
+        };
+
+        // ZAMAN VE ODAL KONTROLLERİ
         function monitorTimeAnomaly() {
             const dateObj = new Date();
             const hr = String(dateObj.getHours()).padStart(2, '0');
@@ -631,7 +534,7 @@
             document.getElementById('tb-clock').innerText = `${hr}:${mn}`;
             document.getElementById('tb-calendar').innerText = `${dateObj.getDate()}.${dateObj.getMonth() + 1}.${currentYear}`;
 
-            const birthLimit = new Date(2011, 8, 25);
+            const birthLimit = new Date(2011, 8, 25); // 25 Eylül 2011
             if (dateObj < birthLimit) {
                 document.getElementById('death-screen').style.display = 'flex';
                 document.body.classList.remove('glitch-active');
@@ -647,7 +550,6 @@
         setInterval(monitorTimeAnomaly, 1000);
         monitorTimeAnomaly();
 
-        // FULLSCREEN
         function initializeOS() {
             forceFullscreen();
             document.getElementById('boot-screen').style.display = 'none';
@@ -660,7 +562,7 @@
         }
         function checkFocusLoss() {
             if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-                if (document.getElementById('death-screen').style.display !== 'flex' && document.getElementById('boot-screen').style.display === 'none') {
+                if (document.getElementById('death-screen').style.display !== 'flex' && document.getElementById('boot-screen').style.display === 'none' && document.getElementById('paradox-complete-screen').style.display !== 'flex') {
                     document.getElementById('lock-screen').style.display = 'flex';
                 }
             } else {
@@ -668,9 +570,8 @@
             }
         }
         document.addEventListener('fullscreenchange', checkFocusLoss);
-        document.addEventListener('webkitfullscreenchange', checkFocusLoss);
 
-        // PENCERE TETİKLEYİCİLERİ
+        // UYGULAMA KONTROLLERİ
         function openApp(id) {
             let win = document.getElementById(id);
             win.style.display = 'flex';
@@ -678,13 +579,64 @@
             win.style.zIndex = activeZIndex;
         }
         function closeApp(id) { document.getElementById(id).style.display = 'none'; }
-        
         function toggleStart() {
             let menu = document.getElementById('start-panel');
             menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        // GÖREV ÇUBUĞU ARAMA MOTORU
+        // HİKAYE TETİKLEME FONKSİYONLARI
+        function openTrashLeak() {
+            openApp('win-notepad');
+            key1_found = true;
+            document.getElementById('notepad-content').value = `// BOZUK SİSTEM VERİSİ SIZINTISI //\n\n...Çekirdek belleğinden okunan satırlar...\n\n[DURUM]: KEY_PART1 Keşfedildi.\nKOD: 0x9B11A\n\nHemen bu kodu kopyalayıp terminal bulmacasında kullanmak üzere sakla. Diğer anahtarlar için Ayarlar'a ve Wilson oyununa bakmayı unutma.`;
+        }
+
+        // TERMINAL MOTORU (ZORLU KOMUTLAR)
+        function handleTerminalCommand(e) {
+            if (e.key === 'Enter') {
+                let inputField = document.getElementById('cmd-input');
+                let fullCmd = inputField.value.trim();
+                let args = fullCmd.split(' ');
+                let cmd = args[0].toLowerCase();
+                let output = document.getElementById('cmd-output');
+
+                output.innerText += `\nC:\\Users\\Administrator>${fullCmd}\n`;
+
+                if (cmd === 'help') {
+                    output.innerText += `Kullanılabilir Komutlar:\n  dir                    - Mevcut dizindeki dosyaları listeler.\n  type [dosya_adı]        - Dosya içeriğini görüntüler.\n  decrypt [şifre_bloku]  - Paradoks şirfelerini çözerek sistemi özgür bırakır.\n  sysinfo                - Sistem mimarisini gösterir.\n  cls                    - Ekranı temizler.\n`;
+                } else if (cmd === 'dir') {
+                    output.innerText += ` Dizin: C:\\Users\\Administrator\n\n06.06.2026  20:26    <TXT>      system_manifest.txt\n06.06.2026  20:26    <LOG>      journal_2026.log\n06.06.2026  20:26    <SYS>      encrypted_core.sys\n`;
+                } else if (cmd === 'type') {
+                    let file = args[1];
+                    if (storyLogs[file]) {
+                        output.innerText += storyLogs[file] + `\n`;
+                    } else if (file === 'encrypted_core.sys') {
+                        output.innerText += `❌ HATA: BU DOSYA ŞİFRELENMİŞTİR VE OKUNAMIYOR.\nÇözmek için 'decrypt KEY1_KEY2_KEY3' protokolünü uygulayın.\n`;
+                    } else {
+                        output.innerText += `❌ HATA: Sistem belirtilen dosyayı bulamadı.\n`;
+                    }
+                } else if (cmd === 'sysinfo') {
+                    output.innerText += `Simülasyon Çekirdeği: ChronoEngine v2.0\nDurum: Paradoks Tehdidi Altında\nAktif Zaman Döngüsü: 2026 -> 2011 Kesintisi\n`;
+                } else if (cmd === 'cls') {
+                    output.innerText = `Chrono OS Terminal\n`;
+                } else if (cmd === 'decrypt') {
+                    let password = args[1];
+                    // Beklenen Tam Şifre: 0x9B11A_0xEF92A_0x777FF
+                    if (password === '0x9B11A_0xEF92A_0x777FF') {
+                        document.getElementById('paradox-complete-screen').style.display = 'flex';
+                    } else {
+                        output.innerText += `❌ GEÇERSİZ ANAHTAR BLOKU. Çekirdek reddetti. Birleştirme formatını kontrol edin: KEY1_KEY2_KEY3\n`;
+                    }
+                } else {
+                    output.innerText += `'${cmd}' geçerli bir komut olarak tanınmadı.\n`;
+                }
+
+                inputField.value = '';
+                output.scrollTop = output.scrollHeight;
+            }
+        }
+
+        // GÖREV ÇUBUĞU ARAMA
         function triggerTaskbarSearch(e) {
             if (e.key === 'Enter') {
                 let text = e.target.value.toLowerCase().trim();
@@ -692,71 +644,55 @@
                 else if (text === 'edge' || text === 'internet') openApp('win-edge');
                 else if (text === 'game' || text === 'wilson') openApp('win-game');
                 else if (text === 'settings' || text === 'ayarlar') openApp('win-settings');
+                else if (text === 'cmd' || text === 'terminal') openApp('win-cmd');
                 e.target.value = '';
             }
         }
 
-        // EDGE ARAMA
+        // EDGE İÇİ ARAMA
         function triggerWebSearch(e) {
             if (e.key === 'Enter') {
+                let val = e.target.value || document.getElementById('bing-search').value;
                 document.getElementById('browser-core').innerHTML = `
-                    <div style="padding: 20px; text-align: left; color: #333; font-size:13px; width:100%;">
-                        <p style="color:#0078d4; font-weight:600;">Simüle Edilen Ağ Sonucu:</p>
-                        <h4 style="margin: 5px 0;">"${e.target.value}" ile ilgili veri hatları kontrol ediliyor...</h4>
-                        <p style="color:#666; font-size:12px; margin-top:5px;">Çevrimdışı güvenli simülatör modu etkin olduğu için harici bağlantı kurulamadı.</p>
+                    <div style="padding: 15px; text-align: left; color: #333; font-size:13px; width:100%; background: #fff; border-radius: 6px; border:1px solid #ddd;">
+                        <p style="color:#0078d4; font-weight:600; font-size:16px;">🔍 Bing Arama Sonuçları: "${val}"</p>
+                        <hr style="margin: 10px 0; border:0; border-top:1px solid #eee;">
+                        <h4 style="margin: 5px 0; color: #111;">Kayıp Zaman Çizgileri Bilgi Bankası</h4>
+                        <p style="color:#555; line-height: 1.5;">Proje Chrono veritabanına göre, 3 anahtarın doğru kombinasyonu terminal komut istemcisinde <strong>decrypt</strong> parametresi ile çalıştırılmalıdır. Anahtarlar hexadecimal (0x...) formundadır.</p>
+                        <p style="color: green; font-size: 11px; margin-top: 5px;">✓ Güvenli Veri Bağlantısı Etkin.</p>
                     </div>`;
             }
         }
 
-        // SÜRÜKLENME (DRAG) YAPISI
+        // PENCERE DRAG YAPISI
         document.querySelectorAll('.window').forEach(win => {
             let head = win.querySelector('.window-header');
-            let isDragging = false;
-            let startX, startY;
-
-            win.addEventListener('mousedown', () => {
-                activeZIndex++;
-                win.style.zIndex = activeZIndex;
-            });
-
+            let isDragging = false; let startX, startY;
+            win.addEventListener('mousedown', () => { activeZIndex++; win.style.zIndex = activeZIndex; });
             head.addEventListener('mousedown', (e) => {
                 isDragging = true;
-                startX = e.clientX - win.offsetLeft;
-                startY = e.clientY - win.offsetTop;
-                document.addEventListener('mousemove', dragMove);
-                document.addEventListener('mouseup', dragEnd);
+                startX = e.clientX - win.offsetLeft; startY = e.clientY - win.offsetTop;
+                document.addEventListener('mousemove', dragMove); document.addEventListener('mouseup', dragEnd);
             });
-
-            function dragMove(e) {
-                if (!isDragging) return;
-                win.style.left = (e.clientX - startX) + 'px';
-                win.style.top = (e.clientY - startY) + 'px';
-            }
-
-            function dragEnd() {
-                isDragging = false;
-                document.removeEventListener('mousemove', dragMove);
-                document.removeEventListener('mouseup', dragEnd);
-            }
+            function dragMove(e) { if (!isDragging) return; win.style.left = (e.clientX - startX) + 'px'; win.style.top = (e.clientY - startY) + 'px'; }
+            function dragEnd() { isDragging = false; document.removeEventListener('mousemove', dragMove); document.removeEventListener('mouseup', dragEnd); }
         });
 
-        // SAVE WILSON CORE ENGINE
+        // SAVE WILSON v2.0 - PARADOX ENGINE
         let canvas, ctx;
         let plyr, obsList, scr, isOver;
 
         function bootMiniGame() {
-            canvas = document.getElementById('game-canvas');
-            ctx = canvas.getContext('2d');
+            canvas = document.getElementById('game-canvas'); ctx = canvas.getContext('2d');
             window.addEventListener('keydown', (e) => { if (e.key === ' ') jumpAction(); });
             canvas.addEventListener('mousedown', jumpAction);
             restartMiniGame();
             setInterval(gameUpdateLoop, 1000 / 60);
         }
         function restartMiniGame() {
-            plyr = { x: 40, y: 230, w: 20, h: 20, dy: 0, gravity: 0.55, strength: -10, onGround: false };
-            obsList = [];
-            scr = 0;
-            isOver = false;
+            plyr = { x: 40, y: 190, w: 22, h: 22, dy: 0, gravity: 0.58, strength: -10.5, onGround: false };
+            obsList = []; scr = 0; isOver = false;
+            document.getElementById('game-hint').innerText = "Zıplamak için SPACE basın. Anahtar için 7 skora ulaşın!";
         }
         function jumpAction() {
             if (isOver) { restartMiniGame(); return; }
@@ -764,12 +700,11 @@
         }
         function gameUpdateLoop() {
             if (!isOver) {
-                plyr.dy += plyr.gravity;
-                plyr.y += plyr.dy;
-                if (plyr.y >= 230) { plyr.y = 230; plyr.dy = 0; plyr.onGround = true; }
+                plyr.dy += plyr.gravity; plyr.y += plyr.dy;
+                if (plyr.y >= 190) { plyr.y = 190; plyr.dy = 0; plyr.onGround = true; }
 
-                if (Math.random() < 0.013 && (obsList.length === 0 || obsList[obsList.length - 1].x < 270)) {
-                    obsList.push({ x: 400, y: 232, w: 14, h: 20, speed: 4.2 + (scr * 0.15) });
+                if (Math.random() < 0.015 && (obsList.length === 0 || obsList[obsList.length - 1].x < 260)) {
+                    obsList.push({ x: 400, y: 192, w: 15, h: 20, speed: 4.5 + (scr * 0.2) });
                 }
                 for (let i = obsList.length - 1; i >= 0; i--) {
                     obsList[i].x -= obsList[i].speed;
@@ -777,32 +712,33 @@
                         isOver = true;
                     }
                     if (obsList[i].x + obsList[i].w < plyr.x && !obsList[i].passed) {
-                        scr++;
-                        obsList[i].passed = true;
+                        scr++; obsList[i].passed = true;
                     }
                     if (obsList[i].x < -20) obsList.splice(i, 1);
                 }
             }
-            ctx.fillStyle = '#1b1b26';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#0078d4';
-            ctx.fillRect(0, 250, canvas.width, 30);
-            ctx.fillStyle = '#ffaa00';
-            ctx.fillRect(plyr.x, plyr.y, plyr.w, plyr.h);
-            ctx.fillStyle = '#ff4444';
-            for (let o of obsList) ctx.fillRect(o.x, o.y, o.w, o.h);
-            ctx.fillStyle = '#fff';
-            ctx.font = '12px monospace';
-            ctx.fillText(`SCORE: ${scr}`, 15, 25);
+
+            // ÇİZİM İŞLEMLERİ
+            ctx.fillStyle = '#111116'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00539c'; ctx.fillRect(0, 212, canvas.width, 48); // Su / Zemin
+            ctx.fillStyle = '#ffaa00'; ctx.fillRect(plyr.x, plyr.y, plyr.w, plyr.h); // Wilson
+            ctx.fillStyle = '#ff4444'; for (let o of obsList) ctx.fillRect(o.x, o.y, o.w, o.h); // Engeller
+            
+            ctx.fillStyle = '#fff'; ctx.font = 'bold 12px monospace';
+            ctx.fillText(`ANOMALİ SKORU: ${scr}`, 15, 25);
+
+            // BULMACA KONTROLÜ (7 SKOR ŞARTI)
+            if (scr >= 7) {
+                key3_found = true;
+                document.getElementById('game-hint').innerHTML = `<span style="color:#ff3333; background:black; padding:2px;">🔑 HW_KEY_PART3: 0x777FF</span>`;
+            }
+
             if (isOver) {
-                ctx.fillStyle = 'rgba(0,0,0,0.75)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#ff4444';
-                ctx.font = '16px monospace';
-                ctx.fillText("WILSON ELENDİ", 140, 130);
-                ctx.fillStyle = '#aaa';
-                ctx.font = '11px monospace';
-                ctx.fillText("Yeniden başlamak için tıklayın.", 100, 160);
+                ctx.fillStyle = 'rgba(0,0,0,0.8)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#ff3333'; ctx.font = 'bold 15px monospace';
+                ctx.fillText("WILSON ZAMAN BOŞLUĞUNA DÜŞTÜ", 80, 120);
+                ctx.fillStyle = '#aaa'; ctx.font = '11px monospace';
+                ctx.fillText("Yeniden denemek için ekrana tıklayın.", 90, 150);
             }
         }
     </script>
